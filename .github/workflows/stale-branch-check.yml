@@ -1,0 +1,44 @@
+name: Check for Stale Branches
+
+on:
+  schedule:
+    # Runs every day at 9:00 AM
+    - cron: '0 9 * * 1-5' # Monday to Friday
+
+jobs:
+  stale_check:
+    runs-on: ubuntu-latest
+    # Grant permissions for the workflow to create issues
+    permissions:
+      issues: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Find and Notify on Stale Branches
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          # Get the last 20 updated branches with their last committer
+          git for-each-ref --format='%(committerdate:iso8601)|%(refname:short)|%(committername)' refs/remotes/origin --sort=-committerdate | \
+          grep -v 'origin/main' | \
+          grep -v 'origin/master' | \
+          head -n 20 | \
+          while IFS='|' read -r last_commit_date branch_name committer_name; do
+            
+            last_commit_seconds=$(date -d "$last_commit_date" +%s)
+            now_seconds=$(date +%s)
+            
+            # Check if the last commit is older than 24 hours (86400 seconds)
+            if (( (now_seconds - last_commit_seconds) > 86400 )); then
+              echo "Branch '$branch_name' is stale! Creating issue for '$committer_name'."
+              gh issue create \
+                --title "Stale Branch Detected: ${branch_name#origin/}" \
+                --body "The branch `${branch_name#origin/}` has not been updated since ${last_commit_date}. Please push new commits or delete the branch if it's no longer needed." \
+                --assignee "${committer_name}" \
+                --label "stale-branch"
+            fi
+          done

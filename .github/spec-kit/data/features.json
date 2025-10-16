@@ -1,0 +1,30 @@
+[
+    {
+        "Name": "Payment Gateway",
+        "BusinessValue": "XL",
+        "TimeCriticality": "XXL",
+        "RiskReduction": "L",
+        "JobSize": "L"
+    },
+    {
+        "Name": "User Dashboard",
+        "BusinessValue": "M",
+        "TimeCriticality": "S",
+        "RiskReduction": "M",
+        "JobSize": "M"
+    },
+    {
+        "Name": "API Security",
+        "BusinessValue": "L",
+        "TimeCriticality": "XL",
+        "RiskReduction": "XL",
+        "JobSize": "S"
+    },
+    {
+        "Name": "Single Sign-On",
+        "BusinessValue": "XL",
+        "TimeCriticality": "L",
+        "RiskReduction": "M",
+        "JobSize": "M"
+    }
+]

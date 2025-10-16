@@ -1,0 +1,34 @@
+{
+  "IterationLength": 2,
+  "Framework": "SAFe 6.0",
+  "Ceremonies": [
+    "PIPlanning",
+    "SystemDemo",
+    "InspectAdapt"
+  ],
+  "Metrics": [
+    "Velocity",
+    "CycleTime",
+    "FlowEfficiency",
+    "Predictability"
+  ],
+  "PILength": 5,
+  "Teams": [
+    "Mobile",
+    "API",
+    "Web",
+    "Platform",
+    "Data"
+  ],
+  "Roles": {
+    "TeamLevel": [
+      "ProductOwner",
+      "ScrumMaster"
+    ],
+    "ProgramLevel": [
+      "ProductManagement",
+      "RTE",
+      "SystemArchitect"
+    ]
+  }
+}

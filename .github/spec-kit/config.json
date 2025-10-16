@@ -1,0 +1,15 @@
+{
+  "agents": {
+    "projectManager": {
+      "instructions": "./instructions/project-manager",
+      "capabilities": ["planning", "tracking", "reporting"],
+      "outputs": ["gantt-charts", "risk-assessments", "status-updates"]
+    },
+    "productManager": {
+      "instructions": "./instructions/product-manager",
+      "capabilities": ["research", "strategy", "prioritization"],
+      "outputs": ["prds", "roadmaps", "user-stories"]
+    }
+  },
+  "excludeDefaults": true
+}

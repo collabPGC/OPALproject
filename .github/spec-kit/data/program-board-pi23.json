@@ -1,0 +1,290 @@
+{
+  "Board": {
+    "Data": {
+      "I2": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I3": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I4": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I1": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I5": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      }
+    },
+    "Mobile": {
+      "I2": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [
+            "b7941ac9-da69-44e0-8a24-d92452e132a2"
+          ],
+          "Outgoing": []
+        }
+      },
+      "I3": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I4": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I1": {
+        "Capacity": 100,
+        "Features": [
+          {
+            "Name": "Login UI",
+            "Points": 13
+          }
+        ],
+        "Committed": 13,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I5": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      }
+    },
+    "Web": {
+      "I2": {
+        "Capacity": 100,
+        "Features": [
+          {
+            "Name": "Dashboard",
+            "Points": 8
+          }
+        ],
+        "Committed": 8,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I3": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I4": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I1": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I5": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      }
+    },
+    "Platform": {
+      "I2": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I3": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I4": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I1": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I5": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      }
+    },
+    "API": {
+      "I2": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I3": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I4": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      },
+      "I1": {
+        "Capacity": 100,
+        "Features": [
+          {
+            "Name": "Auth Service",
+            "Points": 20
+          }
+        ],
+        "Committed": 20,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": [
+            "b7941ac9-da69-44e0-8a24-d92452e132a2"
+          ]
+        }
+      },
+      "I5": {
+        "Capacity": 100,
+        "Features": [],
+        "Committed": 0,
+        "Dependencies": {
+          "Incoming": [],
+          "Outgoing": []
+        }
+      }
+    }
+  },
+  "Teams": [
+    "Mobile",
+    "API",
+    "Web",
+    "Platform",
+    "Data"
+  ],
+  "Iterations": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "Dependencies": {
+    "b7941ac9-da69-44e0-8a24-d92452e132a2": {
+      "CreatedDate": "2025-10-16T13:38:29.5825608-04:00",
+      "Risk": "MEDIUM",
+      "Consumer": {
+        "Feature": "Login Integration",
+        "Team": "Mobile",
+        "Iteration": 2
+      },
+      "Status": "IDENTIFIED",
+      "Provider": {
+        "Team": "API",
+        "Deliverable": "Auth API Endpoints",
+        "Iteration": 1
+      }
+    }
+  },
+  "PINumber": 23
+}
