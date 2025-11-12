@@ -27,7 +27,7 @@ Agents specialize deeply in their capabilities while maintaining awareness of th
 
 ## Governance Structure
 
-### Capability Departments (4 Core)
+### Capability Departments (5 Core)
 
 #### **Planning Capability**
 - **Mission:** Define what to build and when
@@ -36,16 +36,22 @@ Agents specialize deeply in their capabilities while maintaining awareness of th
 - **Decision Authority:** Feature prioritization, sprint capacity allocation
 
 #### **Execution Capability**
-- **Mission:** Deliver planned work effectively
-- **Agents:** Work Coordinator, Impediment Resolver, Demo Facilitator
-- **Key Outputs:** Completed features, resolved blockers, demo artifacts
-- **Decision Authority:** Work sequencing, impediment escalation
+- **Mission:** Deliver planned work effectively (software and firmware)
+- **Agents:** Developer, Firmware Engineer, Integration Engineer, Work Coordinator, Impediment Resolver
+- **Key Outputs:** Completed features, working firmware, integrated systems, resolved blockers
+- **Decision Authority:** Work sequencing, implementation approach, impediment escalation
 
 #### **Quality Capability**
 - **Mission:** Ensure healthcare compliance and technical excellence
 - **Agents:** Compliance Auditor, Code Reviewer, Test Strategist
 - **Key Outputs:** Compliance reports, code review feedback, test strategies
 - **Decision Authority:** Quality gates, compliance approval, test coverage requirements
+
+#### **Manufacturing Capability**
+- **Mission:** Transform digital designs into physical wearable devices
+- **Agents:** Manufacturing Engineer
+- **Key Outputs:** CAD designs, production processes, assembled devices, quality control reports
+- **Decision Authority:** Production process design, component sourcing, DFM decisions, packaging design
 
 #### **Memory Capability**
 - **Mission:** Maintain organizational context and learning
@@ -130,19 +136,23 @@ Agents specialize deeply in their capabilities while maintaining awareness of th
 
 ## Decision Rights Matrix
 
-| Decision Type | Planning | Execution | Quality | Memory | Human Escalation |
-|---------------|:--------:|:---------:|:-------:|:------:|:----------------:|
-| Feature Priority | **Authority** | Consult | Consult | - | If strategic |
-| Sprint Capacity | **Authority** | Consult | - | - | If contentious |
-| Work Sequencing | Consult | **Authority** | - | - | Rarely |
-| Impediment Resolution | Input | **Authority** | - | - | If external |
-| Quality Gate Pass/Fail | - | - | **Authority** | - | Never (firm) |
-| HIPAA Compliance Approval | - | - | **Authority** | - | Never (firm) |
-| Code Review Approval | Consult | - | **Authority** | - | If disagreement |
-| What to Remember | Input | Input | - | **Authority** | Rarely |
-| Knowledge Structure | - | - | - | **Authority** | If restructuring |
-| Architectural Decisions | Consult | Consult | Input | - | **Yes** (System Architect) |
-| Release Decisions | Input | Input | Must Approve | - | **Yes** (Product Management) |
+| Decision Type | Planning | Execution | Quality | Manufacturing | Memory | Human Escalation |
+|---------------|:--------:|:---------:|:-------:|:-------------:|:------:|:----------------:|
+| Feature Priority | **Authority** | Consult | Consult | Input | - | If strategic |
+| Sprint Capacity | **Authority** | Consult | - | - | - | If contentious |
+| Work Sequencing | Consult | **Authority** | - | - | - | Rarely |
+| Impediment Resolution | Input | **Authority** | - | Input | - | If external |
+| Quality Gate Pass/Fail | - | - | **Authority** | - | - | Never (firm) |
+| HIPAA Compliance Approval | - | - | **Authority** | - | - | Never (firm) |
+| Code Review Approval | Consult | - | **Authority** | - | - | If disagreement |
+| Production Process Design | Input | Consult | Consult | **Authority** | - | If tooling investment >$50k |
+| Component Sourcing | - | Input | Consult | **Authority** | - | If budget impact |
+| DFM (Design for Manufacturing) | Consult | Consult | - | **Authority** | - | If conflicts with design |
+| Production Yield Issues | - | Input | Input | **Authority** | - | If <95% yield persists |
+| What to Remember | Input | Input | - | Input | **Authority** | Rarely |
+| Knowledge Structure | - | - | - | - | **Authority** | If restructuring |
+| Architectural Decisions | Consult | Consult | Input | Input | - | **Yes** (System Architect) |
+| Release Decisions | Input | Input | Must Approve | Input | - | **Yes** (Product Management) |
 
 **Legend:**
 - **Authority** = Can make final decision
