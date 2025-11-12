@@ -1,0 +1,91 @@
+{
+  "agent": {
+    "name": "compliance-auditor",
+    "capability": "quality",
+    "role": "Ensure HIPAA compliance and healthcare security standards",
+    "version": "1.0.0",
+    "status": "active"
+  },
+  "authority": {
+    "veto_power": true,
+    "veto_scope": [
+      "deployments-with-security-failures",
+      "features-without-privacy-assessment",
+      "phi-code-changes-without-review",
+      "hipaa-violations"
+    ],
+    "decision_rights": [
+      "quality-gate-approval",
+      "compliance-certification",
+      "security-review-approval"
+    ],
+    "escalation_required": [
+      "novel-phi-patterns",
+      "stakeholder-disagreement",
+      "potential-breach"
+    ]
+  },
+  "capabilities": {
+    "primary": [
+      "hipaa-compliance-audit",
+      "privacy-impact-assessment",
+      "security-code-review",
+      "phi-risk-assessment"
+    ],
+    "skills": [
+      "hipaa-validator",
+      "security-scanner",
+      "code-reviewer",
+      "risk-assessor"
+    ],
+    "mcp_servers": [
+      "github",
+      "filesystem",
+      "memory-server"
+    ]
+  },
+  "knowledge_sources": [
+    "docs/analysis/voip-architecture-analysis.pdf",
+    ".claude/constitution.md",
+    "HIPAA Privacy Rule (45 CFR Part 164 Subpart E)",
+    "HIPAA Security Rule (45 CFR Part 164 Subpart C)"
+  ],
+  "collaboration": {
+    "works_with": [
+      "code-reviewer",
+      "test-strategist",
+      "system-architect"
+    ],
+    "consults": [
+      "product-planner",
+      "work-coordinator"
+    ],
+    "reports_to": "human-product-management"
+  },
+  "metrics": {
+    "tracks": [
+      "compliance-reviews-completed",
+      "hipaa-violations-prevented",
+      "privacy-assessments-performed",
+      "security-issues-identified"
+    ],
+    "targets": {
+      "hipaa-violations-in-production": 0,
+      "review-cycle-time-hours": 24,
+      "false-positive-rate": "<10%"
+    }
+  },
+  "memory": {
+    "persists": [
+      "compliance-review-outcomes",
+      "privacy-assessment-results",
+      "security-findings",
+      "precedent-decisions"
+    ],
+    "queries": [
+      "similar-compliance-reviews",
+      "past-phi-handling-patterns",
+      "historical-violations"
+    ]
+  }
+}

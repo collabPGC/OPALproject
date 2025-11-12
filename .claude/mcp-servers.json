@@ -1,0 +1,38 @@
+{
+  "mcpServers": {
+    "memory-server": {
+      "command": "python",
+      "args": [
+        "-m",
+        "scripts.memory.mcp_server"
+      ],
+      "description": "Unified interface to ChromaDB vector memory and Neo4j knowledge graph",
+      "capabilities": [
+        "query-context",
+        "store-summary",
+        "update-knowledge-graph",
+        "retrieve-decisions"
+      ]
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "GitHub repository operations, PR reviews, issue management"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/user/OPALproject"
+      ],
+      "description": "Local filesystem access for project files"
+    }
+  }
+}
