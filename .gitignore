@@ -43,3 +43,9 @@ Thumbs.db
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Jira credentials (never commit!)
+.jira.env
+*.jira.env
+.env.local
+
