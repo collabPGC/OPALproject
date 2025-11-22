@@ -1,0 +1,11 @@
+Session Date: 2025-10-16
+
+Goal: Design and implement a system to maintain context across sessions.
+
+Components & Actions:
+- Confirmed Neo4j for graph-based semantic search.
+- Confirmed ChromaDB for vector-based similarity search.
+- Created the `embed_and_store.py` script to automate ChromaDB ingestion from a text file.
+- The script uses the OpenAI API for embeddings and connects to the local ChromaDB instance defined in `.env`.
+- Installed necessary Python dependencies: `openai`, `chromadb-client`, `python-dotenv`.
+- Final Workflow: At session end, generate a summary, create a `.cypher` file for Neo4j, and automatically execute the `embed_and_store.py` script.

@@ -1,0 +1,21 @@
+╔═══════════════════════════════════════════════════════╗
+║            SAFe PM SYSTEM QUICK REFERENCE             ║
+╠═══════════════════════════════════════════════════════╣
+║                                                        ║
+║ PROGRAM BOARD:                                         ║
+║   $board = [ProgramBoard]::new(23, @("Team1"))        ║
+║   $board.AddFeature("Team1", 1, @{Name="F1"; Points=8})║
+║   $board.GenerateBoard()                              ║
+║                                                        ║
+║ WSJF CALCULATOR:                                       ║
+║   $calc = [WSJFCalculator]::new()                     ║
+║   $score = $calc.CalculateWSJF(@{...})               ║
+║                                                        ║
+║ FLOW METRICS:                                          ║
+║   $metrics = [FlowMetrics]::new()                     ║
+║   $metrics.RecordVelocity("Team", 1, 40, 35)         ║
+║                                                        ║
+║ MASTER CONTROL:                                        ║
+║   .\SAFe-Controller.ps1 -Action [Status|Board|WSJF]   ║
+║                                                        ║
+╚═══════════════════════════════════════════════════════╝
