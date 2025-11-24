@@ -88,6 +88,67 @@ Please ensure your code adheres to the standards defined in the `/standards` dir
 
 - **Python**: Google Python Style Guide, formatted with `black` and linted with `ruff`.
 - **TypeScript/JavaScript**: TSDoc for documentation, formatted with `Prettier` and linted with `ESLint`.
+- **C++**: Doxygen documentation, C++26 Contracts on all public APIs (see below).
+
+### C++26 Contracts (Firmware Development)
+
+All C++ code in the firmware must use C++26 contracts to express functional correctness assumptions. This is a **required skill** for all firmware developers.
+
+#### When to Use Contracts
+
+✅ **Use contracts for:**
+- **API Preconditions**: Pointer validity, parameter ranges, buffer sizes
+- **Hardware Constraints**: Sample rates, GPIO pins, timing requirements
+- **Protocol State**: Registration state, connection validity, session state
+- **Algorithm Invariants**: Array bounds, state machine states
+
+❌ **Do NOT use contracts for:**
+- **External Input Validation**: Sensor readings, network packets, user input
+- **Recoverable Runtime Errors**: File I/O failures, network timeouts
+- **Side Effects**: Logging, telemetry, hardware I/O operations
+
+#### Contract Best Practices
+
+**1. No Side Effects in Predicates**
+```cpp
+// ❌ BAD: Side effects
+pre: log_call() && validate()
+
+// ✅ GOOD: Pure predicate
+pre: value >= 0 && value < MAX
+```
+
+**2. Use Short-Circuit Evaluation**
+```cpp
+// ❌ DANGER: Split conditions
+pre: p != nullptr
+pre: p->is_valid()  // Could crash!
+
+// ✅ SAFE: Single compound condition
+pre: p != nullptr && p->is_valid()
+```
+
+**3. Express Hardware Constraints**
+```cpp
+// ✅ Document firmware requirements
+void aec_init(uint32_t sample_rate)
+    pre: sample_rate == 16000  // AEC only works at 16kHz
+{ ... }
+```
+
+#### Quick Reference
+
+See `/docs/development/contracts-quick-reference.md` for detailed guidance.
+
+**Slash Commands:**
+- `/add-contract` - Add contracts to a function
+- `/review-contracts` - Review contract usage in current file
+
+**Required Skills:**
+- Distinguish programming bugs from runtime errors
+- Write side-effect-free predicates
+- Configure contract build modes
+- Integrate contracts with Doxygen documentation
 
 ## Commit Message Guidelines
 We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification. This helps in automating changelog generation and makes the commit history more readable.
