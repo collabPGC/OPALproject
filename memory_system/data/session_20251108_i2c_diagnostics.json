@@ -1,0 +1,289 @@
+{
+  "session_id": "session_20251108_i2c_diagnostics",
+  "date": "2025-11-08T03:00:00Z",
+  "project_name": "OPAL Device",
+  "focus": "ES8311 Audio Codec I2C Initialization and Diagnostics",
+  "device": "ESP32-C6 Waveshare Touch LCD 1.69",
+  "status": "FIRMWARE FLASHED - AWAITING SERIAL MONITOR VERIFICATION",
+  "port": "COM4",
+  "mac_address": "fc:01:2c:fe:12:74",
+
+  "completed_tasks": [
+    {
+      "description": "Migrated from mixed I2C drivers to all-new I2C master driver API",
+      "commit": "8a714a0",
+      "details": "Changed all includes from driver/i2c.h to driver/i2c_master.h, created global i2c_master_bus_handle_t, fixed driver conflict error"
+    },
+    {
+      "description": "Implemented comprehensive I2C bus diagnostics",
+      "commit": "d08c398",
+      "details": "Added i2c_check_line_levels() to measure SDA/SCL before init, i2c_bus_recover() with 9-clock pulse recovery + STOP condition, updated scanner with explicit timeouts"
+    },
+    {
+      "description": "Enabled I2C internal pull-ups for better bus stability",
+      "commit": "f11fd3f",
+      "details": "Set .flags.enable_internal_pullup = true in bus config"
+    },
+    {
+      "description": "Fixed build script error level checking",
+      "commit": "ee1d013",
+      "details": "Corrected ERRORLEVEL/LASTEXITCODE capture in batch and PowerShell scripts to prevent false BUILD FAILED messages"
+    },
+    {
+      "description": "Simplified I2C scanner to reduce timeout spam",
+      "commit": "b0a169a",
+      "details": "Used i2c_master_probe() with 100ms timeout, suppressed NACK errors for non-existent addresses, clean scan output"
+    },
+    {
+      "description": "Added detailed logging and error handling for ES8311 initialization",
+      "commit": "d67a7eb",
+      "details": "Replaced ESP_ERROR_CHECK with detailed error logging using esp_err_to_name(), added vTaskDelay yields after I2C operations"
+    },
+    {
+      "description": "Updated touch controller API to use new I2C driver",
+      "commit": "075aed9",
+      "details": "Changed from esp_lcd_new_panel_io_i2c_v1() to esp_lcd_new_panel_io_i2c() with bus handle"
+    },
+    {
+      "description": "Successfully flashed diagnostic firmware to ESP32-C6 on COM4",
+      "commit": "current",
+      "details": "268KB binary with I2C diagnostics, all peripherals temporarily disabled for isolated testing"
+    },
+    {
+      "description": "Created session status documentation and flash utility",
+      "commit": "1273ef7",
+      "details": "Comprehensive SESSION_STATUS.md and flash_monitor.bat for easy workflow"
+    }
+  ],
+
+  "pending_tasks": [
+    {
+      "description": "Open serial monitor on COM4 @ 115200 baud to view I2C diagnostic output",
+      "priority": "critical",
+      "expected_output": "I2C line levels, bus recovery status, device scan results"
+    },
+    {
+      "description": "Verify I2C bus finds 3 devices at addresses 0x18 (ES8311), 0x51 (RTC), 0x6B (IMU)",
+      "priority": "critical",
+      "depends_on": "Serial monitor output"
+    },
+    {
+      "description": "If I2C scan successful, re-enable audio system initialization",
+      "priority": "high",
+      "condition": "3 devices found on I2C bus"
+    },
+    {
+      "description": "If I2C scan fails, debug with external 4.7kΩ pull-ups or lower bus speed",
+      "priority": "high",
+      "condition": "0 devices found on I2C bus"
+    },
+    {
+      "description": "Test ES8311 full initialization through esp_codec_dev",
+      "priority": "medium",
+      "depends_on": "Audio system re-enabled"
+    },
+    {
+      "description": "Re-enable peripherals incrementally: LCD → Touch → WiFi → LVGL",
+      "priority": "medium",
+      "depends_on": "ES8311 working"
+    },
+    {
+      "description": "Test audio functionality with test tone playback",
+      "priority": "low",
+      "depends_on": "All peripherals enabled"
+    }
+  ],
+
+  "code_changes": {
+    "main/opal_main.c": {
+      "description": "Added I2C diagnostics (line check, bus recovery, ES8311 test), created global i2c_master_bus_handle_t, temporarily disabled peripherals",
+      "lines_changed": 150,
+      "key_functions": ["i2c_check_line_levels", "i2c_bus_recover", "init_i2c_bus", "app_main"],
+      "critical_changes": [
+        "Global i2c_master_bus_handle_t i2c_bus_handle exported",
+        "Line level checking before I2C init",
+        "9-clock bus recovery with STOP condition",
+        "Internal pull-ups enabled",
+        "ES8311 initialization sequence with MCLK-first approach",
+        "Detailed error logging instead of ESP_ERROR_CHECK aborts"
+      ]
+    },
+    "main/i2c_scanner.c": {
+      "description": "Updated to use new I2C master driver API with explicit timeouts",
+      "lines_changed": 20,
+      "key_functions": ["scan_i2c_bus"],
+      "critical_changes": [
+        "Uses i2c_master_probe() instead of device create/delete",
+        "100ms timeout per address",
+        "Suppresses errors for non-existent devices"
+      ]
+    },
+    "main/audio_system.c": {
+      "description": "Pass bus_handle to codec library to trigger new I2C driver path",
+      "lines_changed": 5,
+      "critical_changes": [
+        "audio_codec_i2c_cfg_t includes bus_handle parameter",
+        "Ensures codec library uses new I2C driver"
+      ]
+    },
+    "main/hardware_config.h": {
+      "description": "Changed I2C driver include to new API",
+      "lines_changed": 2,
+      "critical_changes": [
+        "Changed #include \"driver/i2c.h\" to \"driver/i2c_master.h\""
+      ]
+    },
+    "build_lvgl.bat": {
+      "description": "Fixed ERRORLEVEL capture for accurate build result reporting",
+      "lines_changed": 3
+    },
+    "build_lvgl.ps1": {
+      "description": "Fixed LASTEXITCODE capture for accurate build result reporting",
+      "lines_changed": 3
+    },
+    "flash_monitor.bat": {
+      "description": "Created new utility script for easy flashing and monitoring",
+      "lines_changed": 30
+    },
+    "SESSION_STATUS.md": {
+      "description": "Created comprehensive session status document",
+      "lines_changed": 428
+    }
+  },
+
+  "issues": [
+    {
+      "description": "I2C driver conflict: CONFLICT! driver_ng is not allowed to be used with this old driver",
+      "status": "resolved",
+      "resolution": "Migrated entirely to new I2C master driver (commit 8a714a0)",
+      "root_cause": "esp_codec_dev library conditionally uses old driver if bus_handle is NULL"
+    },
+    {
+      "description": "Build script false BUILD FAILED messages",
+      "status": "resolved",
+      "resolution": "Capture ERRORLEVEL/LASTEXITCODE immediately after build command (commit ee1d013)",
+      "root_cause": "Subsequent echo commands overwrite error level before check"
+    },
+    {
+      "description": "I2C scanner timeout spam (hundreds of timeout errors)",
+      "status": "resolved",
+      "resolution": "Use i2c_master_probe() with 100ms timeout, suppress non-existent address errors (commit b0a169a)"
+    },
+    {
+      "description": "COM3 port busy during flash attempts",
+      "status": "resolved",
+      "resolution": "Device actually on COM4, flashed successfully",
+      "root_cause": "Previous monitor session holding COM3"
+    },
+    {
+      "description": "I2C bus stuck or no devices found",
+      "status": "pending_verification",
+      "resolution": "Added line level check and bus recovery, enabled internal pull-ups",
+      "next_action": "Verify via serial monitor that bus recovery succeeds and devices are found"
+    },
+    {
+      "description": "Serial monitor access from bash/WSL environment",
+      "status": "workaround",
+      "resolution": "User must open monitor from Windows CMD",
+      "root_cause": "PermissionError(13) on COM ports from MSys/Git Bash"
+    }
+  ],
+
+  "hardware_config": {
+    "device": "ESP32-C6 (QFN40) revision v0.2",
+    "mac_address": "fc:01:2c:fe:12:74",
+    "flash_size": "16 MB",
+    "features": ["WiFi 6", "BT 5", "IEEE802.15.4"],
+    "crystal": "40MHz",
+    "usb_mode": "USB-Serial/JTAG",
+    "i2c_bus": {
+      "port": "I2C_NUM_0",
+      "sda_gpio": 8,
+      "scl_gpio": 7,
+      "speed": "100 kHz",
+      "pull_ups": "internal enabled + external (if present)"
+    },
+    "expected_i2c_devices": [
+      {"address": "0x18", "device": "ES8311 Audio Codec"},
+      {"address": "0x51", "device": "PCF8563 RTC"},
+      {"address": "0x6B", "device": "QMI8658 IMU"}
+    ],
+    "es8311_pins": {
+      "ce_pin": 13,
+      "i2s_mclk": 19,
+      "i2s_bclk": 20,
+      "i2s_lrck": 5,
+      "i2s_dout": 6,
+      "i2s_din": 7,
+      "pa_enable": 46
+    }
+  },
+
+  "key_findings": "Successfully resolved I2C driver conflict by migrating to all-new I2C master driver API. Implemented comprehensive diagnostics including line level checking and bus recovery. Firmware flashed successfully to COM4. Critical next step is verifying I2C bus diagnostics via serial monitor to confirm 3 devices are found at 0x18, 0x51, 0x6B. ES8311 initialization sequence requires MCLK running before I2C access, achieved by enabling I2S TX channel first.",
+
+  "next_steps": "1. Open serial monitor on COM4 @ 115200 baud (idf.py -p COM4 monitor). 2. Verify I2C diagnostic output shows SDA=1 SCL=1, 0 clock pulses, and 3 devices found. 3. If successful, re-enable audio system initialization by uncommenting audio_system_init() in app_main(). 4. If failed, debug with external pull-ups or lower bus speed. 5. Incrementally re-enable other peripherals (LCD, touch, WiFi, LVGL). 6. Test audio functionality with test tone.",
+
+  "technical_notes": {
+    "i2c_driver_api": {
+      "critical_rule": "DO NOT MIX old and new I2C drivers - esp_codec_dev will auto-select based on bus_handle being NULL or not",
+      "new_driver_usage": "Pass non-NULL bus_handle to audio_codec_i2c_cfg_t to trigger new driver path",
+      "initialization": "i2c_new_master_bus() instead of i2c_driver_install()",
+      "device_access": "i2c_master_transmit/receive instead of i2c_master_write_to_device()"
+    },
+    "es8311_init_sequence": {
+      "step1": "Enable I2S TX channel → MCLK output starts on GPIO 19",
+      "step2": "Wait 10ms for MCLK stabilization",
+      "step3": "Drive GPIO 13 (CE) HIGH to release codec from reset",
+      "step4": "Wait 20ms for codec power-up",
+      "step5": "Soft reset: write reg 0x00 = 0x3F",
+      "step6": "Wait 10ms",
+      "step7": "Clear reset: write reg 0x00 = 0x00",
+      "step8": "Wait 5ms",
+      "step9": "Verify: read reg 0x01 to confirm codec responding"
+    },
+    "compiler_optimization": "-Og (CONFIG_COMPILER_OPTIMIZATION_DEBUG=y) for better backtraces",
+    "task_watchdog": "vTaskDelay yields prevent WDT timeouts, increased to 10s temporarily"
+  },
+
+  "git_commits": [
+    {
+      "hash": "d08c398",
+      "message": "feat: Add comprehensive I2C bus diagnostics and recovery"
+    },
+    {
+      "hash": "f11fd3f",
+      "message": "feat: Enable I2C internal pull-ups for better bus stability"
+    },
+    {
+      "hash": "ee1d013",
+      "message": "fix: Correct error level checking in build scripts"
+    },
+    {
+      "hash": "b0a169a",
+      "message": "feat: Simplify I2C scanner to reduce timeout spam"
+    },
+    {
+      "hash": "8a714a0",
+      "message": "feat: Migrate to all-new I2C master driver for ES8311"
+    },
+    {
+      "hash": "d67a7eb",
+      "message": "feat: Add detailed logging and error handling for ES8311 init"
+    },
+    {
+      "hash": "075aed9",
+      "message": "fix: Update touch controller API and add I2C diagnostic logging"
+    },
+    {
+      "hash": "1273ef7",
+      "message": "docs: Add session status document and flash utility script"
+    }
+  ],
+
+  "files_created": [
+    "flash_monitor.bat",
+    "SESSION_STATUS.md"
+  ],
+
+  "resume_instructions": "Read SESSION_STATUS.md for complete context. Open serial monitor on COM4 to view I2C diagnostic output. Based on device scan results, either re-enable audio system (if 3 devices found) or debug I2C bus (if 0 devices found). Firmware is already flashed and ready for testing."
+}

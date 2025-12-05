@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=240, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OPAL Device - Home Screen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system, -apple-system, sans-serif;
+            background: #FFFFFF;
+            width: 240px;
+            height: 320px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            height: 32px;
+            background: #F9FAFB;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+        }
+
+        /* User Info Card */
+        .user-card {
+            margin: 16px;
+            padding: 16px;
+            background: #F9FAFB;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .user-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        /* Primary Action Button */
+        .primary-button {
+            margin: 0 16px 12px;
+            height: 96px;
+            background: #2563EB;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #FFFFFF;
+            font-size: 24px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: transform 100ms;
+        }
+
+        .primary-button:active {
+            transform: scale(0.95);
+        }
+
+        .mic-icon {
+            font-size: 32px;
+            margin-bottom: 4px;
+        }
+
+        /* Mode Indicator */
+        .mode-indicator {
+            margin: 0 16px 12px;
+            height: 48px;
+            background: #EFF6FF;
+            border: 2px solid #2563EB;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .mode-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #6B7280;
+        }
+
+        .mode-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2563EB;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            padding: 0 16px;
+        }
+
+        .action-button {
+            width: 64px;
+            height: 48px;
+            background: #F9FAFB;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background 200ms;
+        }
+
+        .action-button:active {
+            background: #E5E7EB;
+        }
+    </style>
+</head>
+<body>
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span class="icon">🔊</span>
+            <span>OPAL</span>
+        </div>
+        <div class="status-right">
+            <span class="icon">📶</span>
+            <span class="icon">🔋</span>
+        </div>
+    </div>
+
+    <!-- User Info Card -->
+    <div class="user-card">
+        <div class="user-name">👤 Sarah M.</div>
+        <div class="user-role">Nurse - MedSurg</div>
+    </div>
+
+    <!-- Primary Action Button -->
+    <div class="primary-button">
+        <div class="mic-icon">🎤</div>
+        <div>TALK</div>
+    </div>
+
+    <!-- Mode Indicator -->
+    <div class="mode-indicator">
+        <span class="mode-label">Mode:</span>
+        <span class="mode-value">
+            👤 TARGETED
+            <span>▼</span>
+        </span>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <div class="action-button">📞</div>
+        <div class="action-button">🌐</div>
+        <div class="action-button">⚙️</div>
+    </div>
+</body>
+</html>
+

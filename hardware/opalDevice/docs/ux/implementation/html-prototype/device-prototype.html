@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=240, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OPAL Device - Interactive Prototype</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system, -apple-system, sans-serif;
+            background: #FFFFFF;
+            width: 240px;
+            height: 320px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            height: 32px;
+            background: #F9FAFB;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+        }
+
+        /* Home Screen */
+        .user-card {
+            margin: 16px;
+            padding: 16px;
+            background: #F9FAFB;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .user-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .primary-button {
+            margin: 0 16px 12px;
+            height: 96px;
+            background: #2563EB;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #FFFFFF;
+            font-size: 24px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: transform 100ms;
+        }
+
+        .primary-button:active {
+            transform: scale(0.95);
+        }
+
+        .mic-icon {
+            font-size: 32px;
+            margin-bottom: 4px;
+        }
+
+        .mode-indicator {
+            margin: 0 16px 12px;
+            height: 48px;
+            background: #EFF6FF;
+            border: 2px solid #2563EB;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .mode-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #6B7280;
+        }
+
+        .mode-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2563EB;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .quick-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            padding: 0 16px;
+        }
+
+        .action-button {
+            width: 64px;
+            height: 48px;
+            background: #F9FAFB;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background 200ms;
+        }
+
+        .action-button:active {
+            background: #E5E7EB;
+        }
+
+        /* Voice Command Screen */
+        .voice-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .voice-status {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2563EB;
+            margin-bottom: 24px;
+        }
+
+        .mic-large {
+            width: 96px;
+            height: 96px;
+            background: #EFF6FF;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            margin-bottom: 24px;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .command-text {
+            background: #F9FAFB;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 16px;
+            color: #111827;
+            margin-bottom: 16px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .processing-status {
+            background: #EFF6FF;
+            border: 1px solid #2563EB;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: #2563EB;
+        }
+
+        /* Mode Selection Screen */
+        .mode-selection {
+            padding: 16px;
+        }
+
+        .screen-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .mode-option {
+            height: 80px;
+            background: #EFF6FF;
+            border: 2px solid #2563EB;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mode-option.broadcast {
+            background: #FFF7ED;
+            border-color: #F97316;
+        }
+
+        .mode-option-icon {
+            font-size: 32px;
+        }
+
+        .mode-option-content {
+            flex: 1;
+        }
+
+        .mode-option-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2563EB;
+            margin-bottom: 4px;
+        }
+
+        .mode-option.broadcast .mode-option-title {
+            color: #F97316;
+        }
+
+        .mode-option-desc {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .back-button {
+            padding: 8px 16px;
+            background: #F9FAFB;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #111827;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Home Screen -->
+    <div class="screen active" id="home-screen">
+        <div class="status-bar">
+            <div>🔊 OPAL</div>
+            <div>📶 🔋</div>
+        </div>
+        <div class="user-card">
+            <div class="user-name">👤 Sarah M.</div>
+            <div class="user-role">Nurse - MedSurg</div>
+        </div>
+        <div class="primary-button" onclick="showScreen('voice-screen')">
+            <div class="mic-icon">🎤</div>
+            <div>TALK</div>
+        </div>
+        <div class="mode-indicator" onclick="showScreen('mode-selection-screen')">
+            <span class="mode-label">Mode:</span>
+            <span class="mode-value" id="mode-display">
+                👤 TARGETED
+                <span>▼</span>
+            </span>
+        </div>
+        <div class="quick-actions">
+            <div class="action-button">📞</div>
+            <div class="action-button">🌐</div>
+            <div class="action-button">⚙️</div>
+        </div>
+    </div>
+
+    <!-- Voice Command Screen -->
+    <div class="screen" id="voice-screen">
+        <div class="status-bar">
+            <div class="back-button" onclick="showScreen('home-screen')">← Cancel</div>
+        </div>
+        <div class="voice-screen">
+            <div class="voice-status">🎤 Listening...</div>
+            <div class="mic-large">🎤</div>
+            <div class="command-text" id="command-text">Say something...</div>
+            <div class="processing-status" id="processing-status" style="display: none;">
+                ✓ Processing...
+            </div>
+        </div>
+    </div>
+
+    <!-- Mode Selection Screen -->
+    <div class="screen" id="mode-selection-screen">
+        <div class="status-bar">
+            <div class="back-button" onclick="showScreen('home-screen')">← Back</div>
+        </div>
+        <div class="mode-selection">
+            <div class="screen-title">Select Message Mode</div>
+            <div class="mode-option" onclick="selectMode('targeted')">
+                <div class="mode-option-icon">👤</div>
+                <div class="mode-option-content">
+                    <div class="mode-option-title">TARGETED</div>
+                    <div class="mode-option-desc">Private message</div>
+                </div>
+            </div>
+            <div class="mode-option broadcast" onclick="selectMode('broadcast')">
+                <div class="mode-option-icon">📢</div>
+                <div class="mode-option-content">
+                    <div class="mode-option-title">BROADCAST</div>
+                    <div class="mode-option-desc">Group message</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMode = 'targeted';
+
+        function showScreen(screenId) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Show selected screen
+            document.getElementById(screenId).classList.add('active');
+
+            // Special handling for voice screen
+            if (screenId === 'voice-screen') {
+                simulateVoiceCommand();
+            }
+        }
+
+        function selectMode(mode) {
+            currentMode = mode;
+            const modeDisplay = document.getElementById('mode-display');
+            
+            if (mode === 'targeted') {
+                modeDisplay.innerHTML = '👤 TARGETED <span>▼</span>';
+                document.querySelector('.mode-indicator').style.background = '#EFF6FF';
+                document.querySelector('.mode-indicator').style.borderColor = '#2563EB';
+                modeDisplay.style.color = '#2563EB';
+            } else {
+                modeDisplay.innerHTML = '📢 BROADCAST <span>▼</span>';
+                document.querySelector('.mode-indicator').style.background = '#FFF7ED';
+                document.querySelector('.mode-indicator').style.borderColor = '#F97316';
+                modeDisplay.style.color = '#F97316';
+            }
+            
+            showScreen('home-screen');
+        }
+
+        function simulateVoiceCommand() {
+            const commandText = document.getElementById('command-text');
+            const processingStatus = document.getElementById('processing-status');
+            
+            // Simulate voice recognition
+            setTimeout(() => {
+                commandText.textContent = '"Call Dr. Lee"';
+                processingStatus.style.display = 'block';
+                
+                // Simulate processing
+                setTimeout(() => {
+                    commandText.textContent = 'Connecting to Dr. Lee...';
+                    
+                    // Return to home after "call"
+                    setTimeout(() => {
+                        showScreen('home-screen');
+                        commandText.textContent = 'Say something...';
+                        processingStatus.style.display = 'none';
+                    }, 2000);
+                }, 1000);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
+

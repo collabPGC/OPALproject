@@ -1,0 +1,1093 @@
+{
+  "project": {
+    "name": "OPAL Device",
+    "description": "| Supported Target | ESP32-C6 |",
+    "root_path": "G:\\Projects\\OPALproject\\ProjectWork\\hardware\\opalDevice",
+    "target": "ESP32-C6",
+    "idf_version": "5.5.1",
+    "extracted_at": "2025-11-07T13:40:25.605845"
+  },
+  "components": [
+    {
+      "name": "Audio System",
+      "type": "software_component"
+    },
+    {
+      "name": "Wifi Manager",
+      "type": "software_component"
+    },
+    {
+      "name": "Main With Lcd",
+      "type": "software_component"
+    },
+    {
+      "name": "Mqtt Audio",
+      "type": "software_component"
+    },
+    {
+      "name": "Touch Gestures",
+      "type": "software_component"
+    }
+  ],
+  "modules": [
+    {
+      "name": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.c",
+      "language": "c",
+      "lines_of_code": 392,
+      "component": "Audio System"
+    },
+    {
+      "name": "main",
+      "file_path": "opalDevice\\main\\main.c",
+      "language": "c",
+      "lines_of_code": 207,
+      "component": "Main"
+    },
+    {
+      "name": "main_with_lcd",
+      "file_path": "opalDevice\\main\\main_with_lcd.c",
+      "language": "c",
+      "lines_of_code": 390,
+      "component": "Main With Lcd"
+    },
+    {
+      "name": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "language": "c",
+      "lines_of_code": 338,
+      "component": "Mqtt Audio"
+    },
+    {
+      "name": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "language": "c",
+      "lines_of_code": 518,
+      "component": "Opal Main"
+    },
+    {
+      "name": "touch_gestures",
+      "file_path": "opalDevice\\main\\touch_gestures.c",
+      "language": "c",
+      "lines_of_code": 172,
+      "component": "Touch Gestures"
+    },
+    {
+      "name": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.c",
+      "language": "c",
+      "lines_of_code": 171,
+      "component": "Wifi Manager"
+    },
+    {
+      "name": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.h",
+      "language": "c_header",
+      "lines_of_code": 97,
+      "type": "header"
+    },
+    {
+      "name": "hardware_config",
+      "file_path": "opalDevice\\main\\hardware_config.h",
+      "language": "c_header",
+      "lines_of_code": 138,
+      "type": "header"
+    },
+    {
+      "name": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "language": "c_header",
+      "lines_of_code": 133,
+      "type": "header"
+    },
+    {
+      "name": "touch_gestures",
+      "file_path": "opalDevice\\main\\touch_gestures.h",
+      "language": "c_header",
+      "lines_of_code": 99,
+      "type": "header"
+    },
+    {
+      "name": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.h",
+      "language": "c_header",
+      "lines_of_code": 70,
+      "type": "header"
+    }
+  ],
+  "functions": [
+    {
+      "name": "audio_i2s_init",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.c",
+      "line_number": 30,
+      "language": "c"
+    },
+    {
+      "name": "audio_system_init",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.c",
+      "line_number": 106,
+      "language": "c"
+    },
+    {
+      "name": "audio_system_deinit",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.c",
+      "line_number": 216,
+      "language": "c"
+    },
+    {
+      "name": "audio_play",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.c",
+      "line_number": 250,
+      "language": "c"
+    },
+    {
+      "name": "audio_record",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.c",
+      "line_number": 265,
+      "language": "c"
+    },
+    {
+      "name": "audio_set_speaker_volume",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.c",
+      "line_number": 280,
+      "language": "c"
+    },
+    {
+      "name": "audio_set_mic_gain",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.c",
+      "line_number": 294,
+      "language": "c"
+    },
+    {
+      "name": "audio_play_test_tone",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.c",
+      "line_number": 308,
+      "language": "c"
+    },
+    {
+      "name": "audio_test_echo",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.c",
+      "line_number": 348,
+      "language": "c"
+    },
+    {
+      "name": "i2c_bus_clear_if_stuck",
+      "module": "main",
+      "file_path": "opalDevice\\main\\main.c",
+      "line_number": 39,
+      "language": "c"
+    },
+    {
+      "name": "app_main",
+      "module": "main",
+      "file_path": "opalDevice\\main\\main.c",
+      "line_number": 62,
+      "language": "c"
+    },
+    {
+      "name": "i2c_bus_clear_if_stuck",
+      "module": "main_with_lcd",
+      "file_path": "opalDevice\\main\\main_with_lcd.c",
+      "line_number": 47,
+      "language": "c"
+    },
+    {
+      "name": "init_i2c_bus",
+      "module": "main_with_lcd",
+      "file_path": "opalDevice\\main\\main_with_lcd.c",
+      "line_number": 73,
+      "language": "c"
+    },
+    {
+      "name": "init_lcd_panel",
+      "module": "main_with_lcd",
+      "file_path": "opalDevice\\main\\main_with_lcd.c",
+      "line_number": 109,
+      "language": "c"
+    },
+    {
+      "name": "init_touch_controller",
+      "module": "main_with_lcd",
+      "file_path": "opalDevice\\main\\main_with_lcd.c",
+      "line_number": 182,
+      "language": "c"
+    },
+    {
+      "name": "lcd_fill_screen",
+      "module": "main_with_lcd",
+      "file_path": "opalDevice\\main\\main_with_lcd.c",
+      "line_number": 243,
+      "language": "c"
+    },
+    {
+      "name": "lcd_draw_rect",
+      "module": "main_with_lcd",
+      "file_path": "opalDevice\\main\\main_with_lcd.c",
+      "line_number": 271,
+      "language": "c"
+    },
+    {
+      "name": "app_main",
+      "module": "main_with_lcd",
+      "file_path": "opalDevice\\main\\main_with_lcd.c",
+      "line_number": 300,
+      "language": "c"
+    },
+    {
+      "name": "mic_stream_task_func",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 109,
+      "language": "c"
+    },
+    {
+      "name": "speaker_playback_task_func",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 142,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_audio_init",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 165,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_audio_start",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 203,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_audio_stop",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 216,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_audio_is_connected",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 233,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_audio_start_streaming_mic",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 237,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_audio_stop_streaming_mic",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 264,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_audio_is_streaming_mic",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 282,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_audio_enable_speaker",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 286,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_audio_publish_gesture",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 306,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_audio_publish_status",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 319,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_audio_register_status_callback",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 331,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_audio_register_control_callback",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.c",
+      "line_number": 335,
+      "language": "c"
+    },
+    {
+      "name": "i2c_bus_clear_if_stuck",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 74,
+      "language": "c"
+    },
+    {
+      "name": "init_i2c_bus",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 96,
+      "language": "c"
+    },
+    {
+      "name": "init_lcd_panel",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 122,
+      "language": "c"
+    },
+    {
+      "name": "init_touch_controller",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 180,
+      "language": "c"
+    },
+    {
+      "name": "lcd_fill_screen",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 221,
+      "language": "c"
+    },
+    {
+      "name": "lcd_draw_rect",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 242,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_status_callback",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 259,
+      "language": "c"
+    },
+    {
+      "name": "mqtt_control_callback",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 271,
+      "language": "c"
+    },
+    {
+      "name": "draw_menu",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 289,
+      "language": "c"
+    },
+    {
+      "name": "handle_menu_gesture",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 307,
+      "language": "c"
+    },
+    {
+      "name": "handle_touch_demo_gesture",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 355,
+      "language": "c"
+    },
+    {
+      "name": "handle_streaming_gesture",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 376,
+      "language": "c"
+    },
+    {
+      "name": "app_main",
+      "module": "opal_main",
+      "file_path": "opalDevice\\main\\opal_main.c",
+      "line_number": 397,
+      "language": "c"
+    },
+    {
+      "name": "gesture_detector_init",
+      "module": "touch_gestures",
+      "file_path": "opalDevice\\main\\touch_gestures.c",
+      "line_number": 18,
+      "language": "c"
+    },
+    {
+      "name": "gesture_detector_init_with_config",
+      "module": "touch_gestures",
+      "file_path": "opalDevice\\main\\touch_gestures.c",
+      "line_number": 29,
+      "language": "c"
+    },
+    {
+      "name": "calculate_distance",
+      "module": "touch_gestures",
+      "file_path": "opalDevice\\main\\touch_gestures.c",
+      "line_number": 34,
+      "language": "c"
+    },
+    {
+      "name": "detect_swipe_direction",
+      "module": "touch_gestures",
+      "file_path": "opalDevice\\main\\touch_gestures.c",
+      "line_number": 40,
+      "language": "c"
+    },
+    {
+      "name": "wifi_manager_init",
+      "module": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.c",
+      "line_number": 62,
+      "language": "c"
+    },
+    {
+      "name": "wifi_manager_connect",
+      "module": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.c",
+      "line_number": 105,
+      "language": "c"
+    },
+    {
+      "name": "wifi_manager_disconnect",
+      "module": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.c",
+      "line_number": 142,
+      "language": "c"
+    },
+    {
+      "name": "wifi_manager_is_connected",
+      "module": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.c",
+      "line_number": 151,
+      "language": "c"
+    },
+    {
+      "name": "wifi_manager_register_callback",
+      "module": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.c",
+      "line_number": 155,
+      "language": "c"
+    },
+    {
+      "name": "wifi_manager_get_ip",
+      "module": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.c",
+      "line_number": 159,
+      "language": "c"
+    },
+    {
+      "name": "audio_system_init",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.h",
+      "line_number": 28,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "audio_system_deinit",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.h",
+      "line_number": 35,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "audio_play",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.h",
+      "line_number": 44,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "audio_record",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.h",
+      "line_number": 53,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "audio_set_speaker_volume",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.h",
+      "line_number": 61,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "audio_set_mic_gain",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.h",
+      "line_number": 69,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "audio_play_test_tone",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.h",
+      "line_number": 79,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "audio_test_echo",
+      "module": "audio_system",
+      "file_path": "opalDevice\\main\\audio_system.h",
+      "line_number": 90,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "mqtt_audio_init",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "line_number": 38,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "mqtt_audio_start",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "line_number": 45,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "mqtt_audio_stop",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "line_number": 52,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "mqtt_audio_is_connected",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "line_number": 59,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "mqtt_audio_start_streaming_mic",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "line_number": 69,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "mqtt_audio_stop_streaming_mic",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "line_number": 76,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "mqtt_audio_is_streaming_mic",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "line_number": 83,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "mqtt_audio_enable_speaker",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "line_number": 94,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "mqtt_audio_publish_gesture",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "line_number": 104,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "mqtt_audio_publish_status",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "line_number": 112,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "mqtt_audio_register_status_callback",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "line_number": 119,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "mqtt_audio_register_control_callback",
+      "module": "mqtt_audio",
+      "file_path": "opalDevice\\main\\mqtt_audio.h",
+      "line_number": 126,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "gesture_detector_init",
+      "module": "touch_gestures",
+      "file_path": "opalDevice\\main\\touch_gestures.h",
+      "line_number": 66,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "gesture_detector_init_with_config",
+      "module": "touch_gestures",
+      "file_path": "opalDevice\\main\\touch_gestures.h",
+      "line_number": 71,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "wifi_manager_init",
+      "module": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.h",
+      "line_number": 27,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "wifi_manager_connect",
+      "module": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.h",
+      "line_number": 34,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "wifi_manager_disconnect",
+      "module": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.h",
+      "line_number": 41,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "wifi_manager_is_connected",
+      "module": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.h",
+      "line_number": 48,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "wifi_manager_register_callback",
+      "module": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.h",
+      "line_number": 55,
+      "language": "c_header",
+      "type": "declaration"
+    },
+    {
+      "name": "wifi_manager_get_ip",
+      "module": "wifi_manager",
+      "file_path": "opalDevice\\main\\wifi_manager.h",
+      "line_number": 63,
+      "language": "c_header",
+      "type": "declaration"
+    }
+  ],
+  "hardware": [
+    {
+      "name": "ST7789V2",
+      "type": "LCD Display",
+      "interface": "SPI",
+      "resolution": "240x280",
+      "description": "LCD display controller"
+    },
+    {
+      "name": "CST816S",
+      "type": "Touch Controller",
+      "interface": "I2C",
+      "address": "0x15",
+      "description": "Capacitive touch controller"
+    },
+    {
+      "name": "ES8311",
+      "type": "Audio Codec",
+      "interface": "I2C + I2S",
+      "address": "0x18",
+      "description": "Audio codec for speaker and microphone"
+    },
+    {
+      "name": "ESP32-C6",
+      "type": "MCU",
+      "interface": "N/A",
+      "description": "Main microcontroller unit"
+    }
+  ],
+  "peripherals": [],
+  "documentation": [
+    {
+      "name": "DEVELOPMENT_GUIDE.md",
+      "file_path": "opalDevice\\DEVELOPMENT_GUIDE.md",
+      "title": "OPAL Device Development Guide",
+      "type": "md",
+      "size": 11345,
+      "line_count": 368
+    },
+    {
+      "name": "FLASH_INSTRUCTIONS.md",
+      "file_path": "opalDevice\\FLASH_INSTRUCTIONS.md",
+      "title": "Flash and Test Instructions",
+      "type": "md",
+      "size": 5678,
+      "line_count": 204
+    },
+    {
+      "name": "LCD_SETUP.md",
+      "file_path": "opalDevice\\LCD_SETUP.md",
+      "title": "LCD Display Setup - Quick Start",
+      "type": "md",
+      "size": 4875,
+      "line_count": 168
+    },
+    {
+      "name": "MQTT_BROKER_SETUP.md",
+      "file_path": "opalDevice\\MQTT_BROKER_SETUP.md",
+      "title": "MQTT Broker Setup Guide for OPAL Device",
+      "type": "md",
+      "size": 8652,
+      "line_count": 346
+    },
+    {
+      "name": "MQTT_SECURITY_GUIDE.md",
+      "file_path": "opalDevice\\MQTT_SECURITY_GUIDE.md",
+      "title": "MQTT Security Guide for OPAL Device",
+      "type": "md",
+      "size": 11428,
+      "line_count": 416
+    },
+    {
+      "name": "OPAL_COMPLETE_SYSTEM.md",
+      "file_path": "opalDevice\\OPAL_COMPLETE_SYSTEM.md",
+      "title": "OPAL Device - Complete System Documentation",
+      "type": "md",
+      "size": 8950,
+      "line_count": 329
+    },
+    {
+      "name": "QUICK_START.md",
+      "file_path": "opalDevice\\QUICK_START.md",
+      "title": "OPAL Device - Quick Start Guide",
+      "type": "md",
+      "size": 4657,
+      "line_count": 221
+    },
+    {
+      "name": "README.md",
+      "file_path": "opalDevice\\README.md",
+      "title": "Readme",
+      "type": "md",
+      "size": 4000,
+      "line_count": 136
+    },
+    {
+      "name": "TESTING_WITHOUT_MQTT.md",
+      "file_path": "opalDevice\\TESTING_WITHOUT_MQTT.md",
+      "title": "Testing OPAL Device Without MQTT",
+      "type": "md",
+      "size": 5888,
+      "line_count": 205
+    },
+    {
+      "name": "spec-design.md",
+      "file_path": "opalDevice\\.claude\\agents\\kfc\\spec-design.md",
+      "title": "Spec-Design",
+      "type": "md",
+      "size": 5896,
+      "line_count": 159
+    },
+    {
+      "name": "spec-impl.md",
+      "file_path": "opalDevice\\.claude\\agents\\kfc\\spec-impl.md",
+      "title": "Spec-Impl",
+      "type": "md",
+      "size": 1641,
+      "line_count": 40
+    },
+    {
+      "name": "spec-judge.md",
+      "file_path": "opalDevice\\.claude\\agents\\kfc\\spec-judge.md",
+      "title": "Spec-Judge",
+      "type": "md",
+      "size": 4395,
+      "line_count": 126
+    },
+    {
+      "name": "spec-requirements.md",
+      "file_path": "opalDevice\\.claude\\agents\\kfc\\spec-requirements.md",
+      "title": "Spec-Requirements",
+      "type": "md",
+      "size": 5340,
+      "line_count": 124
+    },
+    {
+      "name": "spec-system-prompt-loader.md",
+      "file_path": "opalDevice\\.claude\\agents\\kfc\\spec-system-prompt-loader.md",
+      "title": "Spec-System-Prompt-Loader",
+      "type": "md",
+      "size": 1619,
+      "line_count": 39
+    },
+    {
+      "name": "spec-tasks.md",
+      "file_path": "opalDevice\\.claude\\agents\\kfc\\spec-tasks.md",
+      "title": "Spec-Tasks",
+      "type": "md",
+      "size": 9214,
+      "line_count": 184
+    },
+    {
+      "name": "spec-test.md",
+      "file_path": "opalDevice\\.claude\\agents\\kfc\\spec-test.md",
+      "title": "Spec-Test",
+      "type": "md",
+      "size": 3592,
+      "line_count": 109
+    },
+    {
+      "name": "spec-workflow-starter.md",
+      "file_path": "opalDevice\\.claude\\system-prompts\\spec-workflow-starter.md",
+      "title": "Spec-Workflow-Starter",
+      "type": "md",
+      "size": 16067,
+      "line_count": 307
+    },
+    {
+      "name": "CHANGELOG.md",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_codec_dev\\CHANGELOG.md",
+      "title": "Changelog",
+      "type": "md",
+      "size": 3033,
+      "line_count": 144
+    },
+    {
+      "name": "README.md",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_codec_dev\\README.md",
+      "title": "ESP Codec Device",
+      "type": "md",
+      "size": 9226,
+      "line_count": 241
+    },
+    {
+      "name": "README_CN.md",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_codec_dev\\README_CN.md",
+      "title": "ESP Codec Device",
+      "type": "md",
+      "size": 6171,
+      "line_count": 240
+    },
+    {
+      "name": "README.md",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_codec_dev\\test_apps\\codec_dev_test\\README.md",
+      "title": "Readme",
+      "type": "md",
+      "size": 575,
+      "line_count": 10
+    },
+    {
+      "name": "README.md",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_lcd_touch\\README.md",
+      "title": "ESP LCD Touch Component",
+      "type": "md",
+      "size": 483,
+      "line_count": 17
+    },
+    {
+      "name": "README.md",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_lcd_touch_cst816s\\README.md",
+      "title": "ESP LCD Touch CST816S Controller",
+      "type": "md",
+      "size": 3649,
+      "line_count": 95
+    },
+    {
+      "name": "CMakeLists.txt",
+      "file_path": "opalDevice\\CMakeLists.txt",
+      "title": "The following lines of boilerplate have to be in your project's",
+      "type": "txt",
+      "size": 482,
+      "line_count": 13
+    },
+    {
+      "name": "CMakeLists.txt",
+      "file_path": "opalDevice\\main\\CMakeLists.txt",
+      "title": "Cmakelists",
+      "type": "txt",
+      "size": 368,
+      "line_count": 27
+    },
+    {
+      "name": "CMakeLists.txt",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_codec_dev\\CMakeLists.txt",
+      "title": "Cmakelists",
+      "type": "txt",
+      "size": 2852,
+      "line_count": 95
+    },
+    {
+      "name": "LICENSE.txt",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_codec_dev\\device\\zl38063\\LICENSE.txt",
+      "title": "License",
+      "type": "txt",
+      "size": 1066,
+      "line_count": 9
+    },
+    {
+      "name": "Readme_twolf.txt",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_codec_dev\\device\\zl38063\\Readme_twolf.txt",
+      "title": "Readme Twolf",
+      "type": "txt",
+      "size": 1729,
+      "line_count": 36
+    },
+    {
+      "name": "CMakeLists.txt",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_codec_dev\\test_apps\\codec_dev_test\\CMakeLists.txt",
+      "title": "Cmakelists",
+      "type": "txt",
+      "size": 288,
+      "line_count": 11
+    },
+    {
+      "name": "CMakeLists.txt",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_codec_dev\\test_apps\\codec_dev_test\\main\\CMakeLists.txt",
+      "title": "Cmakelists",
+      "type": "txt",
+      "size": 328,
+      "line_count": 14
+    },
+    {
+      "name": "CMakeLists.txt",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_lcd_touch\\CMakeLists.txt",
+      "title": "Cmakelists",
+      "type": "txt",
+      "size": 98,
+      "line_count": 2
+    },
+    {
+      "name": "license.txt",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_lcd_touch\\license.txt",
+      "title": "License",
+      "type": "txt",
+      "size": 11358,
+      "line_count": 203
+    },
+    {
+      "name": "CMakeLists.txt",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_lcd_touch_cst816s\\CMakeLists.txt",
+      "title": "Cmakelists",
+      "type": "txt",
+      "size": 97,
+      "line_count": 2
+    },
+    {
+      "name": "license.txt",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_lcd_touch_cst816s\\license.txt",
+      "title": "License",
+      "type": "txt",
+      "size": 11358,
+      "line_count": 203
+    },
+    {
+      "name": "CMakeLists.txt",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_lcd_touch_cst816s\\test_apps\\CMakeLists.txt",
+      "title": "The following lines of boilerplate have to be in your project's CMakeLists",
+      "type": "txt",
+      "size": 323,
+      "line_count": 7
+    },
+    {
+      "name": "CMakeLists.txt",
+      "file_path": "opalDevice\\managed_components\\espressif__esp_lcd_touch_cst816s\\test_apps\\main\\CMakeLists.txt",
+      "title": "Cmakelists",
+      "type": "txt",
+      "size": 60,
+      "line_count": 2
+    }
+  ],
+  "configurations": [
+    {
+      "name": "CMakeLists.txt",
+      "file_path": "opalDevice\\CMakeLists.txt",
+      "type": "cmake"
+    },
+    {
+      "name": "sdkconfig",
+      "file_path": "opalDevice\\sdkconfig",
+      "type": "esp_idf_config"
+    },
+    {
+      "name": "partitions.csv",
+      "file_path": "opalDevice\\partitions.csv",
+      "type": "partition_table"
+    },
+    {
+      "name": "hardware_config.h",
+      "file_path": "opalDevice\\main\\hardware_config.h",
+      "type": "hardware_config"
+    }
+  ],
+  "status": {
+    "timestamp": "2025-11-07T13:40:25.682227",
+    "completion_state": "v1.0 - Production Ready",
+    "features_complete": [
+      "Display System (ST7789V2)",
+      "Touch Input (CST816S)",
+      "Audio System (ES8311)",
+      "WiFi Connectivity",
+      "MQTT Integration",
+      "Interactive UI"
+    ],
+    "features_pending": [
+      "IMU Integration (QMI8658)",
+      "RTC Integration (PCF85063)",
+      "LVGL Graphics Library",
+      "Audio Compression",
+      "OTA Updates",
+      "Power Management"
+    ],
+    "known_issues": [],
+    "last_session": null
+  }
+}

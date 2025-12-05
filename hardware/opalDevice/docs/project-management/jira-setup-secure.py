@@ -21,6 +21,7 @@ from jira import JIRA
 import sys
 import getpass
 import os
+import argparse
 from pathlib import Path
 
 # Jira Configuration
@@ -28,21 +29,28 @@ JIRA_SERVER = "https://pgconsulting.atlassian.net"
 JIRA_EMAIL = "hubert.williams@gmail.com"
 PROJECT_KEY = "OPAL"  # Change if you want a different project key
 
-def get_api_token_secure():
-    """Securely get API token from user input or .env file"""
+def get_credentials_secure(auto_use=False):
+    """Securely get API token and organization ID from user input or .env file"""
     # Try to load from .env file first
     env_file = Path(__file__).parent / ".jira.env"
+    
+    token = None
+    org_id = None
     
     if env_file.exists():
         try:
             from dotenv import load_dotenv
             load_dotenv(env_file)
             token = os.getenv("JIRA_API_TOKEN")
-            if token:
-                print(f"✓ Found API token in {env_file.name}")
-                use_saved = input("Use saved token? (y/n): ").strip().lower()
+            org_id = os.getenv("JIRA_ORG_ID")
+            if token and org_id:
+                print(f"✓ Found credentials in {env_file.name}")
+                if auto_use:
+                    print("  Auto-using saved credentials (--auto-use flag)")
+                    return token, org_id
+                use_saved = input("Use saved credentials? (y/n): ").strip().lower()
                 if use_saved == 'y':
-                    return token
+                    return token, org_id
         except ImportError:
             pass
         except Exception as e:
@@ -50,7 +58,7 @@ def get_api_token_secure():
     
     # Prompt for token securely
     print("\n" + "=" * 60)
-    print("SECURE API TOKEN INPUT")
+    print("SECURE CREDENTIALS INPUT")
     print("=" * 60)
     print("\nTo get your API token:")
     print("1. Go to: https://id.atlassian.com/manage-profile/security/api-tokens")
@@ -63,24 +71,36 @@ def get_api_token_secure():
         print("Error: API token is required")
         sys.exit(1)
     
+    # Prompt for organization ID
+    print("\nTo find your Organization ID:")
+    print("1. Go to: https://admin.atlassian.com/")
+    print("2. Your Organization ID is shown in the URL or settings")
+    print("   (e.g., if URL is admin.atlassian.com/o/abc123def, org ID is 'abc123def')")
+    print()
+    
+    org_id = input("Enter your Organization ID: ").strip()
+    if not org_id:
+        print("Error: Organization ID is required")
+        sys.exit(1)
+    
     # Optionally save to .env file
-    save_token = input("\nSave token to .jira.env file for future use? (y/n): ").strip().lower()
-    if save_token == 'y':
+    save_creds = input("\nSave credentials to .jira.env file for future use? (y/n): ").strip().lower()
+    if save_creds == 'y':
         try:
-            env_content = f"JIRA_API_TOKEN={api_token}\nJIRA_EMAIL={JIRA_EMAIL}\nJIRA_SERVER={JIRA_SERVER}\n"
+            env_content = f"JIRA_API_TOKEN={api_token}\nJIRA_ORG_ID={org_id}\nJIRA_EMAIL={JIRA_EMAIL}\nJIRA_SERVER={JIRA_SERVER}\n"
             env_file.write_text(env_content)
             # Set restrictive permissions (Unix-like systems)
             if hasattr(os, 'chmod'):
                 os.chmod(env_file, 0o600)
-            print(f"✓ Token saved to {env_file.name} (excluded from git)")
-            print("  You can use this token next time without re-entering it.")
+            print(f"✓ Credentials saved to {env_file.name} (excluded from git)")
+            print("  You can use these credentials next time without re-entering them.")
         except Exception as e:
-            print(f"Warning: Could not save token: {e}")
-            print("Token will only be used for this session.")
+            print(f"Warning: Could not save credentials: {e}")
+            print("Credentials will only be used for this session.")
     
-    return api_token
+    return api_token, org_id
 
-def get_jira_connection():
+def get_jira_connection(auto_use=False):
     """Establish secure connection to Jira"""
     print("=" * 60)
     print("Jira Connection Setup")
@@ -89,21 +109,26 @@ def get_jira_connection():
     print(f"Email: {JIRA_EMAIL}")
     print()
     
-    api_token = get_api_token_secure()
+    api_token, org_id = get_credentials_secure(auto_use=auto_use)
+    
+    print(f"\nOrganization ID: {org_id}")
+    print("Connecting to Jira...")
     
     try:
         jira = JIRA(server=JIRA_SERVER, basic_auth=(JIRA_EMAIL, api_token))
         # Test connection by getting current user
         current_user = jira.current_user()
-        print(f"\n✓ Successfully connected to Jira!")
+        print("\n✓ Successfully connected to Jira!")
         print(f"✓ Logged in as: {current_user}")
-        return jira
+        print(f"✓ Organization ID: {org_id}")
+        return jira, org_id
     except Exception as e:
         print(f"\n✗ Failed to connect to Jira: {e}")
         print("\nTroubleshooting:")
         print("1. Verify your API token is correct")
         print("2. Check that your email matches your Jira account")
-        print("3. Ensure you have permission to create projects")
+        print("3. Verify your Organization ID is correct")
+        print("4. Ensure you have permission to create projects")
         sys.exit(1)
 
 def create_or_get_project(jira, project_key, project_name):
@@ -121,12 +146,12 @@ def create_or_get_project(jira, project_key, project_name):
             return project
         else:
             print("Please choose a different project key.")
-            new_key = input(f"Enter new project key (or press Enter to cancel): ").strip()
+            new_key = input("Enter new project key (or press Enter to cancel): ").strip()
             if new_key:
                 return create_or_get_project(jira, new_key, project_name)
             else:
                 sys.exit(0)
-    except:
+    except Exception:
         pass
     
     # Create new project
@@ -154,14 +179,14 @@ def create_or_get_project(jira, project_key, project_name):
         if use_existing == 'y':
             try:
                 return jira.project("SCRUM")
-            except:
+            except Exception:
                 print("Could not access SCRUM project either.")
                 sys.exit(1)
         return None
 
 def create_epics(jira, project_key):
     """Create epic issues for the project"""
-    print(f"\n=== Creating Epics ===")
+    print("\n=== Creating Epics ===")
     
     epics = [
         {
@@ -227,7 +252,7 @@ def create_epics(jira, project_key):
 
 def create_components(jira, project_key):
     """Create components for the project"""
-    print(f"\n=== Creating Components ===")
+    print("\n=== Creating Components ===")
     
     components = [
         {'name': 'ESP32-C6-Firmware', 'description': 'ESP32-C6 firmware development'},
@@ -269,7 +294,7 @@ def create_components(jira, project_key):
 
 def create_initial_issues(jira, project_key):
     """Create initial issues from action items"""
-    print(f"\n=== Creating Initial Issues ===")
+    print("\n=== Creating Initial Issues ===")
     
     issues = [
         {
@@ -343,6 +368,12 @@ def create_initial_issues(jira, project_key):
 
 def main():
     """Main execution"""
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description='Secure Jira Setup Script for OPAL Project')
+    parser.add_argument('--auto-use', action='store_true', 
+                       help='Automatically use saved credentials without prompting')
+    args = parser.parse_args()
+    
     print("=" * 60)
     print("Secure Jira Setup Script for OPAL Project")
     print("=" * 60)
@@ -356,11 +387,11 @@ def main():
     print()
     
     # Connect to Jira
-    jira = get_jira_connection()
+    jira, org_id = get_jira_connection(auto_use=args.auto_use)
     
     # Get or create project
     project_key = input(f"\nEnter project key (default: {PROJECT_KEY}, or 'SCRUM' for existing): ").strip() or PROJECT_KEY
-    project_name = input(f"Enter project name (default: OPAL): ").strip() or "OPAL"
+    project_name = input("Enter project name (default: OPAL): ").strip() or "OPAL"
     
     project = create_or_get_project(jira, project_key, project_name)
     if not project:
@@ -396,9 +427,10 @@ def main():
     print(f"Epics created: {len(epics)}")
     print(f"Components created: {len(components)}")
     print(f"Issues created: {len(issues)}")
-    print(f"\nView your project at:")
+    print("\nView your project at:")
+    
     print(f"{JIRA_SERVER}/browse/{project_key}")
-    print(f"\nView your board at:")
+    print("\nView your board at:")
     print(f"{JIRA_SERVER}/jira/software/projects/{project_key}/boards/1")
     print()
 

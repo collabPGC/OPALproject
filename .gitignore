@@ -49,3 +49,6 @@ htmlcov/
 *.jira.env
 .env.local
 
+# Windows reserved device names (problematic files)
+nul
+hardware/opalDevice/esp-adf-temp/

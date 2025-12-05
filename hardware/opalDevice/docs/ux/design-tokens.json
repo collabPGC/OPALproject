@@ -1,0 +1,204 @@
+{
+  "colors": {
+    "device": {
+      "primary": {
+        "blue": {
+          "value": "#2563EB",
+          "rgb": { "r": 37, "g": 99, "b": 235 }
+        },
+        "orange": {
+          "value": "#F97316",
+          "rgb": { "r": 249, "g": 115, "b": 22 }
+        }
+      },
+      "background": {
+        "main": { "value": "#FFFFFF" },
+        "surface": { "value": "#F9FAFB" },
+        "targeted": { "value": "#EFF6FF" },
+        "broadcast": { "value": "#FFF7ED" }
+      },
+      "text": {
+        "primary": { "value": "#111827" },
+        "secondary": { "value": "#6B7280" }
+      },
+      "status": {
+        "success": { "value": "#10B981" },
+        "warning": { "value": "#F59E0B" },
+        "error": { "value": "#EF4444" },
+        "info": { "value": "#3B82F6" }
+      }
+    },
+    "dashboard": {
+      "primary": {
+        "blue": {
+          "value": "#2563EB",
+          "rgb": { "r": 37, "g": 99, "b": 235 }
+        },
+        "orange": {
+          "value": "#F97316",
+          "rgb": { "r": 249, "g": 115, "b": 22 }
+        }
+      },
+      "background": {
+        "main": { "value": "#F3F4F6" },
+        "surface": { "value": "#FFFFFF" }
+      },
+      "text": {
+        "primary": { "value": "#111827" },
+        "secondary": { "value": "#6B7280" }
+      },
+      "border": {
+        "default": { "value": "#E5E7EB" }
+      },
+      "status": {
+        "success": { "value": "#10B981" },
+        "warning": { "value": "#F59E0B" },
+        "error": { "value": "#EF4444" },
+        "info": { "value": "#3B82F6" }
+      }
+    }
+  },
+  "typography": {
+    "device": {
+      "fontFamily": {
+        "primary": { "value": "system, -apple-system, sans-serif" }
+      },
+      "fontSize": {
+        "h1": { "value": "24px" },
+        "h2": { "value": "20px" },
+        "h3": { "value": "18px" },
+        "bodyLarge": { "value": "16px" },
+        "body": { "value": "14px" },
+        "bodySmall": { "value": "12px" },
+        "label": { "value": "12px" },
+        "labelSmall": { "value": "10px" },
+        "buttonLarge": { "value": "18px" },
+        "button": { "value": "16px" },
+        "buttonSmall": { "value": "14px" }
+      },
+      "fontWeight": {
+        "regular": { "value": "400" },
+        "medium": { "value": "500" },
+        "semiBold": { "value": "600" },
+        "bold": { "value": "700" }
+      },
+      "lineHeight": {
+        "h1": { "value": "32px" },
+        "h2": { "value": "28px" },
+        "h3": { "value": "24px" },
+        "bodyLarge": { "value": "24px" },
+        "body": { "value": "20px" },
+        "bodySmall": { "value": "16px" },
+        "label": { "value": "16px" },
+        "labelSmall": { "value": "14px" },
+        "buttonLarge": { "value": "24px" },
+        "button": { "value": "20px" },
+        "buttonSmall": { "value": "18px" }
+      }
+    },
+    "dashboard": {
+      "fontFamily": {
+        "primary": { "value": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }
+      },
+      "fontSize": {
+        "h1": { "value": "32px" },
+        "h2": { "value": "24px" },
+        "h3": { "value": "20px" },
+        "h4": { "value": "18px" },
+        "bodyLarge": { "value": "16px" },
+        "body": { "value": "14px" },
+        "bodySmall": { "value": "12px" }
+      },
+      "fontWeight": {
+        "regular": { "value": "400" },
+        "medium": { "value": "500" },
+        "semiBold": { "value": "600" },
+        "bold": { "value": "700" }
+      },
+      "lineHeight": {
+        "h1": { "value": "40px" },
+        "h2": { "value": "32px" },
+        "h3": { "value": "28px" },
+        "h4": { "value": "24px" },
+        "bodyLarge": { "value": "24px" },
+        "body": { "value": "20px" },
+        "bodySmall": { "value": "16px" }
+      }
+    }
+  },
+  "spacing": {
+    "device": {
+      "xs": { "value": "4px" },
+      "sm": { "value": "8px" },
+      "md": { "value": "12px" },
+      "lg": { "value": "16px" },
+      "xl": { "value": "24px" },
+      "xxl": { "value": "32px" }
+    },
+    "dashboard": {
+      "xs": { "value": "4px" },
+      "sm": { "value": "8px" },
+      "md": { "value": "12px" },
+      "lg": { "value": "16px" },
+      "xl": { "value": "24px" },
+      "xxl": { "value": "32px" },
+      "xxxl": { "value": "48px" }
+    }
+  },
+  "sizing": {
+    "device": {
+      "screen": {
+        "width": { "value": "240px" },
+        "height": { "value": "320px" }
+      },
+      "touchTarget": {
+        "minimum": { "value": "44px" }
+      },
+      "button": {
+        "primaryHeight": { "value": "96px" },
+        "secondaryHeight": { "value": "48px" },
+        "iconSize": { "value": "48px" }
+      },
+      "card": {
+        "borderRadius": { "value": "12px" },
+        "padding": { "value": "16px" }
+      }
+    },
+    "dashboard": {
+      "screen": {
+        "maxWidth": { "value": "1920px" }
+      },
+      "card": {
+        "borderRadius": { "value": "12px" },
+        "padding": { "value": "24px" }
+      },
+      "button": {
+        "height": { "value": "40px" },
+        "padding": { "value": "12px 24px" }
+      }
+    }
+  },
+  "animation": {
+    "device": {
+      "pageTransition": { "value": "200ms ease-in-out" },
+      "buttonPress": { "value": "100ms" },
+      "loadingSpinner": { "value": "1s linear infinite" },
+      "modeSwitch": { "value": "300ms" }
+    },
+    "dashboard": {
+      "pageTransition": { "value": "300ms ease-in-out" },
+      "cardHover": { "value": "200ms" },
+      "dataUpdate": { "value": "400ms" },
+      "chartAnimation": { "value": "500ms ease-out" }
+    }
+  },
+  "breakpoints": {
+    "dashboard": {
+      "mobile": { "value": "640px" },
+      "tablet": { "value": "1024px" },
+      "desktop": { "value": "1440px" },
+      "large": { "value": "1920px" }
+    }
+  }
+}
+

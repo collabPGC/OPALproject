@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command:*)",
+      "Bash(powershell \"Get-Process | Sort WorkingSet64 -Desc | Select -First 15 Name,@{N=''MB'';E={[int]($_.WorkingSet64/1MB)}} | ft -Auto\")",
+      "Bash(powershell:*)",
+      "Bash(tasklist:*)",
+      "Bash(cmd //c \"tasklist /FI \"\"MEMUSAGE gt 500000\"\"\")",
+      "Bash(docker container prune:*)",
+      "Bash(cmd /c:*)",
+      "Bash(cmd //c \"tasklist | findstr Cursor\")",
+      "Bash(dir:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git add:*)",
+      "Bash(echo:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

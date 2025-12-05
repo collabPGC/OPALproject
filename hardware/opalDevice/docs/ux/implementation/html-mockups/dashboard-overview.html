@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPAL Control Center - System Status</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #F3F4F6;
+            color: #111827;
+        }
+
+        /* Header */
+        .header {
+            height: 64px;
+            background: #FFFFFF;
+            border-bottom: 1px solid #E5E7EB;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .header-button {
+            padding: 8px 16px;
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+            cursor: pointer;
+            transition: background 200ms;
+        }
+
+        .header-button:hover {
+            background: #E5E7EB;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #6B7280;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .metric-icon {
+            font-size: 32px;
+        }
+
+        /* System Health Card */
+        .system-health-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #E5E7EB;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #10B981;
+            width: 80%;
+            border-radius: 4px;
+            transition: width 400ms;
+        }
+
+        .health-status {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        .health-status-item {
+            margin-bottom: 4px;
+        }
+
+        /* Active Workflows Card */
+        .workflows-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .workflow-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #E5E7EB;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .workflow-item:last-child {
+            border-bottom: none;
+        }
+
+        .workflow-icon {
+            font-size: 24px;
+        }
+
+        .workflow-content {
+            flex: 1;
+        }
+
+        .workflow-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .workflow-status {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .workflow-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-critical {
+            background: #FEF2F2;
+            color: #991B1B;
+        }
+
+        .badge-active {
+            background: #EFF6FF;
+            color: #1E40AF;
+        }
+
+        .badge-pending {
+            background: #FFFBEB;
+            color: #92400E;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-title">OPAL Control Center</div>
+        <div class="header-actions">
+            <button class="header-button">User</button>
+            <button class="header-button">Settings</button>
+            <button class="header-button">Logout</button>
+        </div>
+    </div>
+
+    <!-- Container -->
+    <div class="container">
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Devices Online</div>
+                <div class="metric-value">
+                    <span>24/30</span>
+                    <span class="metric-icon">🟢</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Active Calls</div>
+                <div class="metric-value">
+                    <span>8</span>
+                    <span class="metric-icon">📞</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Messages Today</div>
+                <div class="metric-value">
+                    <span>142</span>
+                    <span class="metric-icon">📨</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">AI Success Rate</div>
+                <div class="metric-value">
+                    <span>92%</span>
+                    <span class="metric-icon">✓</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Health Card -->
+        <div class="system-health-card">
+            <div class="card-title">System Health</div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="health-status">
+                <div class="health-status-item">• All systems operational</div>
+                <div class="health-status-item">• 2 devices offline (battery)</div>
+            </div>
+        </div>
+
+        <!-- Active Workflows Card -->
+        <div class="workflows-card">
+            <div class="card-title">Active Workflows</div>
+            <div class="workflow-item">
+                <span class="workflow-icon">🚨</span>
+                <div class="workflow-content">
+                    <div class="workflow-title">Patient Blood Loss - Room 302</div>
+                    <div class="workflow-status">Status: Critical</div>
+                </div>
+                <span class="workflow-badge badge-critical">Critical</span>
+            </div>
+            <div class="workflow-item">
+                <span class="workflow-icon">⚡</span>
+                <div class="workflow-content">
+                    <div class="workflow-title">STEMI Alert - Cath Lab</div>
+                    <div class="workflow-status">Status: Active</div>
+                </div>
+                <span class="workflow-badge badge-active">Active</span>
+            </div>
+            <div class="workflow-item">
+                <span class="workflow-icon">📋</span>
+                <div class="workflow-content">
+                    <div class="workflow-title">Pharmacy Call - MedSurg</div>
+                    <div class="workflow-status">Status: Pending</div>
+                </div>
+                <span class="workflow-badge badge-pending">Pending</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
