@@ -12,7 +12,14 @@
       "Bash(dir:*)",
       "Bash(git rev-parse:*)",
       "Bash(git add:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git worktree:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git log:*)",
+      "Bash(git lfs:*)"
     ],
     "deny": [],
     "ask": []
