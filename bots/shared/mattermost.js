@@ -137,6 +137,43 @@ export async function searchChannel(channelName) {
   }
 }
 
+// Get username by user ID with caching
+export async function getUsername(userId, cache = null) {
+  if (cache && cache.has(userId)) {
+    return cache.get(userId);
+  }
+  try {
+    const user = await mmApi(`/users/${userId}`);
+    const username = user.username;
+    if (cache) cache.set(userId, username);
+    return username;
+  } catch (err) {
+    log('error', 'Failed to fetch username', { userId, error: err.message });
+    return 'unknown_user';
+  }
+}
+
+// Upload a file to Mattermost from a local file path
+// Uses curl for reliable multipart upload
+export async function uploadFile(channelId, filePath, fileName) {
+  const { execSync } = await import('child_process');
+  const curlCmd = `curl -s -X POST "${config.mattermost.url}/api/v4/files" \
+    -H "Authorization: Bearer ${config.mattermost.botToken}" \
+    -F "channel_id=${channelId}" \
+    -F "files=@${filePath};filename=${fileName}"`;
+
+  try {
+    const result = execSync(curlCmd, { encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 });
+    const parsed = JSON.parse(result);
+    if (parsed.file_infos && parsed.file_infos[0]) {
+      return parsed.file_infos[0].id;
+    }
+    throw new Error('No file_infos in response: ' + result);
+  } catch (error) {
+    throw new Error(`File upload failed: ${error.message}`);
+  }
+}
+
 export default {
   init,
   mmApi,
@@ -145,5 +182,7 @@ export default {
   fetchChannelHistory,
   getUser,
   getBotUserId,
-  searchChannel
+  searchChannel,
+  getUsername,
+  uploadFile
 };

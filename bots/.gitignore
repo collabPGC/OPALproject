@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+package-lock.json
 
 # Config with secrets
 config.json
@@ -19,3 +20,7 @@ whatsapp-bridge/auth_info*/
 
 # Environment
 .env
+
+# Backup files
+*.pre-refactor
+*.bak

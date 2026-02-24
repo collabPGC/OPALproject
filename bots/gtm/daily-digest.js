@@ -12,9 +12,9 @@ import companyState from './company-state.js';
 import domainFrameworks from './domain-frameworks.js';
 import observationMode from './observation-mode.js';
 import personaRouter from './persona-router.js';
-import institutionalMemory from '../shared/institutional-memory/index.js';
-import * as llm from '../shared/llm.js';
-import * as mm from '../shared/mattermost.js';
+import institutionalMemory from 'bots-shared/institutional-memory';
+import * as llm from 'bots-shared/llm.js';
+import * as mm from 'bots-shared/mattermost.js';
 
 let config = null;
 let logger = () => {};

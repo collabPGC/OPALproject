@@ -4,15 +4,9 @@
   "type": "module",
   "exports": {
     ".": "./index.js",
-    "./logger": "./logger.js",
-    "./mattermost": "./mattermost.js",
-    "./jira": "./jira.js",
-    "./classify": "./classify.js",
-    "./websocket": "./websocket.js",
-    "./helpers": "./helpers.js",
-    "./social": "./social.js",
-    "./pdf-utils": "./pdf-utils.js",
-    "./memory": "./memory.js",
+    "./*.js": "./*.js",
+    "./crew": "./crew/index.js",
+    "./institutional-memory": "./institutional-memory/index.js",
     "./stores": "./stores/index.js",
     "./stores/*": "./stores/*.js"
   },

@@ -9,7 +9,7 @@ import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 import { randomUUID } from 'crypto';
-import * as llm from '../shared/llm.js';
+import * as llm from 'bots-shared/llm.js';
 import personaRouter from './persona-router.js';
 
 const DOCS_ROOT = '/mnt/volume_nyc3_01/gtm-documents';

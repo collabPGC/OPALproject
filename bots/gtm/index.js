@@ -13,10 +13,10 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { createWebSocketManager } from '../shared/websocket.js';
-import * as mm from '../shared/mattermost.js';
-import * as llm from '../shared/llm.js';
-import institutionalMemory from '../shared/institutional-memory/index.js';
+import { createWebSocketManager } from 'bots-shared/websocket.js';
+import * as mm from 'bots-shared/mattermost.js';
+import * as llm from 'bots-shared/llm.js';
+import institutionalMemory from 'bots-shared/institutional-memory';
 import personaRouter from './persona-router.js';
 import observationMode from './observation-mode.js';
 import dailyDigest from './daily-digest.js';
@@ -273,6 +273,32 @@ function buildFullSystemPrompt(persona, channelId) {
   if (personaPrompt) {
     parts.push(personaPrompt);
   }
+
+  // Company & Product Context (always included)
+  parts.push(`## COMPANY & PRODUCT CONTEXT
+**OPAL** (opalpass.com) is building **LYNA** — a voice-first clinical intelligence platform for nurses.
+
+**Mission:** Eliminate the $12B/year hospital communication crisis. Nurses lose 45 min/shift on outdated communication. 70% of serious safety events are linked to communication failures.
+
+**Product — LYNA:** "Information OUT" for nurses (not "Documentation IN" for physicians like Suki/Abridge). Three capabilities: (1) Instant voice communication, (2) Real-time clinical decision support at bedside, (3) Execution layer that sends pages, initiates calls, broadcasts to teams.
+
+**Architecture:** Local-first AI (Phi-3 SLM on hospital premises, no PHI in cloud). 7 integration systems: Operational KB (LYNA's data moat — door codes, pager numbers, prep checklists), Policy, EHR (Epic FHIR/Cerner read-only), Drug Info, Equipment Docs, Regulatory, Communications. <2s end-to-end latency.
+
+**Device Strategy:** v1 iPhone app (zero procurement friction) → v2 Vocera/Apple Watch → v3+ dedicated LYNA badge ($22 BOM, ESP32-S3, XMOS voice processor, 12-hour battery).
+
+**Market:** TAM $12-15B, SAM $4-5B. Target: 300-450 bed hospitals with Epic/Cerner, >12% nursing vacancy, legacy pagers. Pricing: $45-110/user/month. Typical Year 1 deal: $404K.
+
+**Competition:** Vocera/Stryker (~40% market, 2,000+ hospitals, $3.1B acquisition — dated hardware, no AI). C8 Health ($18M raised, 100+ hospitals — text-only, physician/schedule-based, no voice, no EHR data, no execution layer). Suki ($168M — physician documentation). LYNA's defensible advantages: nurse-focused, assignment-based architecture, live FHIR integration, execution layer, operational KB data moat.
+
+**Go-to-Market Flywheel:** Phase 1 (zero-friction policy lookup) → Phase 2 (SSO + FHIR, patient-aware) → Phase 3 (personalization, behavioral data) → Phase 4 (platform, hospital intelligence API).
+
+**Financials:** Year 1: $6.2M → Year 5: $77.5M (88% CAGR). LTV:CAC 5.5x→11.2x. EBITDA positive Year 5. 450% ROI for 500-bed hospital.
+
+**Funding:** Targeting $2-3M seed extension (Q1-Q2 2026), then $10-15M Series A (Q4) at $40-60M valuation. Board ask: $5.55M across clinical validation ($500K), flagship partnership ($800K), product dev ($2.5M), GTM engine ($1.75M).
+
+**Team:** Ruth Okyere (Founder/CEO, RN at Mount Sinai, Columbia pre-med), Hubert Williams (Cloud/AI architect, 20+ yrs), Alex Harris (Embedded/firmware, Rockwell Automation, 20+ yrs, patents), Kwaku (ESP32 hardware dev), Kofi Agyeman.
+
+**Market Window:** 18-24 months before well-funded incumbents recognize the nurse-focused clinical intelligence opportunity.`);
 
   // Institutional memory context
   try {

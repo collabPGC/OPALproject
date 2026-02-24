@@ -5,6 +5,7 @@
   "main": "index.js",
   "description": "Multi-persona GTM bot for OPAL/LYNA",
   "dependencies": {
+    "bots-shared": "*",
     "node-cron": "^4.2.1"
   }
 }

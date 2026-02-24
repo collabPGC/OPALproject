@@ -4,17 +4,44 @@
       "enabled": true,
       "apiKey": "YOUR_ANTHROPIC_API_KEY",
       "models": {
-        "claude-opus-4-5-20251101": {
+        "claude-opus-4-6": {
           "tier": "premium",
-          "capabilities": ["reasoning", "code", "vision", "tool_use", "deep_thinking"],
+          "capabilities": [
+            "reasoning",
+            "code",
+            "vision",
+            "tool_use",
+            "deep_thinking"
+          ],
           "contextWindow": 200000,
-          "outputTokens": 16384
+          "outputTokens": 128000,
+          "comment": "Most intelligent model, $5/$25 per MTok"
         },
-        "claude-sonnet-4-20250514": {
+        "claude-sonnet-4-6": {
           "tier": "standard",
-          "capabilities": ["reasoning", "code", "vision", "tool_use"],
+          "capabilities": [
+            "reasoning",
+            "code",
+            "vision",
+            "tool_use",
+            "deep_thinking"
+          ],
           "contextWindow": 200000,
-          "outputTokens": 8192
+          "outputTokens": 64000,
+          "comment": "Best speed/intelligence ratio, $3/$15 per MTok"
+        },
+        "claude-haiku-4-5-20251001": {
+          "tier": "budget",
+          "capabilities": [
+            "reasoning",
+            "code",
+            "vision",
+            "tool_use",
+            "fast"
+          ],
+          "contextWindow": 200000,
+          "outputTokens": 64000,
+          "comment": "Fastest model, $1/$5 per MTok"
         }
       }
     },
@@ -22,17 +49,31 @@
       "enabled": true,
       "apiKey": "YOUR_OPENAI_API_KEY",
       "models": {
-        "gpt-5.2-thinking": {
+        "gpt-5.2": {
           "tier": "premium",
-          "capabilities": ["reasoning", "code", "vision", "tool_use", "deep_thinking"],
-          "contextWindow": 200000,
-          "outputTokens": 32768
+          "capabilities": [
+            "reasoning",
+            "code",
+            "vision",
+            "tool_use",
+            "deep_thinking"
+          ],
+          "contextWindow": 400000,
+          "outputTokens": 32768,
+          "comment": "Flagship thinking model, $1.75/$14 per MTok"
         },
-        "gpt-5.2-instant": {
-          "tier": "standard",
-          "capabilities": ["reasoning", "code", "vision", "tool_use"],
-          "contextWindow": 200000,
-          "outputTokens": 16384
+        "gpt-5-mini": {
+          "tier": "budget",
+          "capabilities": [
+            "reasoning",
+            "code",
+            "vision",
+            "tool_use",
+            "fast"
+          ],
+          "contextWindow": 400000,
+          "outputTokens": 16384,
+          "comment": "Fast and cheap, $0.25/$2 per MTok"
         }
       }
     },
@@ -40,28 +81,59 @@
       "enabled": true,
       "apiKey": "YOUR_GOOGLE_API_KEY",
       "models": {
-        "gemini-3-pro": {
+        "gemini-3.1-pro-preview": {
           "tier": "premium",
-          "capabilities": ["reasoning", "code", "vision", "deep_thinking"],
-          "contextWindow": 2000000,
-          "outputTokens": 65536
-        },
-        "gemini-3-flash": {
-          "tier": "standard",
-          "capabilities": ["reasoning", "code", "fast", "long-context"],
+          "capabilities": [
+            "reasoning",
+            "code",
+            "vision",
+            "deep_thinking",
+            "long-context"
+          ],
           "contextWindow": 1000000,
-          "outputTokens": 8192
+          "outputTokens": 65536,
+          "comment": "Latest Gemini, ARC-AGI-2 77.1%, $2/$12 per MTok"
+        },
+        "gemini-3-flash-preview": {
+          "tier": "standard",
+          "capabilities": [
+            "reasoning",
+            "code",
+            "vision",
+            "fast",
+            "long-context"
+          ],
+          "contextWindow": 1000000,
+          "outputTokens": 64000,
+          "comment": "Pro-level intelligence at Flash speed, $0.50/$3 per MTok"
+        },
+        "gemini-2.5-flash": {
+          "tier": "budget",
+          "capabilities": [
+            "general",
+            "fast",
+            "long-context"
+          ],
+          "contextWindow": 1000000,
+          "outputTokens": 8192,
+          "comment": "Budget workhorse, $0.30/$2.50 per MTok"
         }
       }
     },
     "glm": {
       "enabled": true,
-      "apiKey": "YOUR_OPENROUTER_API_KEY",
+      "apiKey": "YOUR_GLM_API_KEY",
       "baseUrl": "https://openrouter.ai/api/v1",
       "models": {
         "zhipu/glm-4-plus": {
           "tier": "standard",
-          "capabilities": ["reasoning", "code", "chinese", "tool_use", "vision"],
+          "capabilities": [
+            "reasoning",
+            "code",
+            "chinese",
+            "tool_use",
+            "vision"
+          ],
           "contextWindow": 128000,
           "outputTokens": 4096
         }
@@ -70,15 +142,105 @@
   },
   "routing": {
     "research": {
-      "preferred": ["claude-opus-4-5-20251101", "gpt-5.2-thinking", "gemini-3-pro"],
-      "requiredCapabilities": ["reasoning"]
+      "preferred": [
+        "claude-opus-4-6",
+        "gpt-5.2",
+        "gemini-3.1-pro-preview"
+      ],
+      "requiredCapabilities": [
+        "reasoning"
+      ],
+      "comment": "Opus 4.6 excels at deep research and strategic analysis"
     },
     "code": {
-      "preferred": ["claude-opus-4-5-20251101", "claude-sonnet-4-20250514"],
-      "requiredCapabilities": ["code"]
+      "preferred": [
+        "claude-opus-4-6",
+        "gpt-5.2",
+        "claude-sonnet-4-6",
+        "gemini-3.1-pro-preview"
+      ],
+      "requiredCapabilities": [
+        "code"
+      ],
+      "comment": "Opus 4.6 for complex code, Sonnet 4.6 for routine code"
+    },
+    "summary": {
+      "preferred": [
+        "claude-sonnet-4-6",
+        "gemini-3-flash-preview",
+        "gpt-5-mini",
+        "zhipu/glm-4-plus"
+      ],
+      "requiredCapabilities": []
+    },
+    "translation": {
+      "preferred": [
+        "zhipu/glm-4-plus",
+        "gemini-3-flash-preview",
+        "claude-haiku-4-5-20251001"
+      ],
+      "requiredCapabilities": []
+    },
+    "vision": {
+      "preferred": [
+        "claude-opus-4-6",
+        "gpt-5.2",
+        "gemini-3.1-pro-preview",
+        "zhipu/glm-4-plus"
+      ],
+      "requiredCapabilities": [
+        "vision"
+      ]
+    },
+    "long-context": {
+      "preferred": [
+        "gemini-3.1-pro-preview",
+        "gemini-3-flash-preview",
+        "gpt-5.2",
+        "claude-opus-4-6"
+      ],
+      "requiredCapabilities": [
+        "long-context"
+      ]
+    },
+    "math": {
+      "preferred": [
+        "gpt-5.2",
+        "claude-opus-4-6",
+        "gemini-3.1-pro-preview"
+      ],
+      "requiredCapabilities": [
+        "reasoning"
+      ]
+    },
+    "analysis": {
+      "preferred": [
+        "claude-opus-4-6",
+        "gpt-5.2",
+        "gemini-3.1-pro-preview"
+      ],
+      "requiredCapabilities": [
+        "reasoning"
+      ],
+      "comment": "Strategic analysis and hypothesis generation"
+    },
+    "brainstorm": {
+      "preferred": [
+        "claude-opus-4-6",
+        "gpt-5.2",
+        "gemini-3.1-pro-preview"
+      ],
+      "requiredCapabilities": [
+        "reasoning"
+      ],
+      "comment": "Creative ideation with deep thinking"
     },
     "general": {
-      "preferred": ["claude-sonnet-4-20250514", "gpt-5.2-instant", "gemini-3-flash"],
+      "preferred": [
+        "claude-sonnet-4-6",
+        "gemini-3-flash-preview",
+        "gpt-5-mini"
+      ],
       "requiredCapabilities": []
     }
   },

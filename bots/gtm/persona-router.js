@@ -9,7 +9,7 @@
  * 5. Default: strategist
  */
 
-import personaManager from '../shared/persona-manager.js';
+import personaManager from 'bots-shared/persona-manager.js';
 
 // Persona definitions with routing metadata
 const PERSONAS = {

@@ -1,0 +1,6 @@
+{
+  "name": "opal-bots",
+  "private": true,
+  "type": "module",
+  "workspaces": ["shared", "scout", "spark", "gtm", "whatsapp-bridge"]
+}
