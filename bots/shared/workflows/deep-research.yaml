@@ -1,0 +1,21 @@
+# Deep Research Workflow
+# Multi-step research with critique and synthesis
+
+name: deep-research
+description: Deep research with dialectic refinement
+version: "1.0"
+ralphMode: auto
+maxIterations: 3
+
+steps:
+  - skill: research
+    input: "{{topic}}"
+    output: initial_research
+
+  - skill: critique
+    input: "{{initial_research}}"
+    output: critique
+
+  - skill: synthesize
+    inputs: [initial_research, critique]
+    output: final_synthesis

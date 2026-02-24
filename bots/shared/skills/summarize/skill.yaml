@@ -1,0 +1,11 @@
+name: summarize
+version: "1.0"
+description: Summarize discussions and extract action items
+triggers: [summarize, summary, recap]
+requiredContext: [content]
+outputFormat: markdown
+maxTokens: 8192
+temperature: 0.5
+model: auto
+ralphMode: never
+workflow: null

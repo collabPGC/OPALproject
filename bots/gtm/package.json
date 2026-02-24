@@ -1,0 +1,10 @@
+{
+  "name": "gtm-bot",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "description": "Multi-persona GTM bot for OPAL/LYNA",
+  "dependencies": {
+    "node-cron": "^4.2.1"
+  }
+}

@@ -1,0 +1,42 @@
+# Technical Report Style - Detailed, data-heavy documents
+# For engineering specs, technical analysis, research papers
+
+template: eisvogel
+pdf-engine: pdflatex
+
+variables:
+  titlepage: true
+  titlepage-color: "1e293b"
+  titlepage-text-color: "FFFFFF"
+  titlepage-rule-color: "22c55e"
+  titlepage-rule-height: 3
+
+  documentclass: report
+  fontsize: 10pt
+  geometry: "margin=0.9in"
+  linestretch: 1.15
+
+  # Green accent theme
+  linkcolor: "166534"
+  urlcolor: "166534"
+
+  header-left: "Technical Report"
+  header-right: "\\thepage"
+  footer-left: "\\today"
+  footer-right: "Scout Bot"
+
+  toc: true
+  toc-depth: 4
+  toc-own-page: true
+
+  # Code formatting
+  listings: true
+  listings-no-page-break: true
+  code-block-font-size: "\\footnotesize"
+
+  colorlinks: true
+  classoption:
+    - twoside
+
+highlight-style: pygments
+number-sections: true

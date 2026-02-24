@@ -1,0 +1,165 @@
+{
+  "name": "Minimal",
+  "description": "Clean, minimal style with subtle grays - focuses on content readability",
+  "version": "2.0",
+
+  "_comment": "Minimal style inspired by LaTeX article class with minimal decoration",
+
+  "document": {
+    "class": "article",
+    "paper": "A4",
+    "orientation": "portrait"
+  },
+
+  "geometry": {
+    "top": 45,
+    "bottom": 45,
+    "left": 50,
+    "right": 50,
+    "headheight": 12,
+    "headsep": 15,
+    "footskip": 25
+  },
+
+  "xcolor": {
+    "primary": "#111827",
+    "secondary": "#374151",
+    "accent": "#6b7280",
+    "text": "#1f2937",
+    "lightText": "#9ca3af",
+    "tableHeaderBg": "#f3f4f6",
+    "tableHeaderFg": "#111827",
+    "tableRowAlt": "#f9fafb",
+    "ruleLine": "#e5e7eb"
+  },
+
+  "fonts": {
+    "body": { "family": "Helvetica", "size": 10 },
+    "title": { "family": "Helvetica-Bold", "size": 20 },
+    "h1": { "family": "Helvetica-Bold", "size": 16 },
+    "h2": { "family": "Helvetica-Bold", "size": 13 },
+    "h3": { "family": "Helvetica-Bold", "size": 11 },
+    "h4": { "family": "Helvetica-Bold", "size": 10 },
+    "tableHeader": { "family": "Helvetica-Bold", "size": 8 },
+    "tableBody": { "family": "Helvetica", "size": 8 },
+    "header": { "family": "Helvetica", "size": 8 },
+    "footer": { "family": "Helvetica", "size": 8 },
+    "pageNum": { "family": "Helvetica", "size": 9 }
+  },
+
+  "titlesec": {
+    "chapter": {
+      "spaceBefore": 20,
+      "spaceAfter": 10,
+      "rule": { "show": false }
+    },
+    "section": {
+      "spaceBefore": 16,
+      "spaceAfter": 6,
+      "rule": { "show": false }
+    },
+    "subsection": {
+      "spaceBefore": 10,
+      "spaceAfter": 4,
+      "rule": { "show": false }
+    },
+    "subsubsection": {
+      "spaceBefore": 6,
+      "spaceAfter": 3,
+      "rule": { "show": false }
+    },
+    "orphanThreshold": {
+      "chapter": 680,
+      "section": 700,
+      "subsection": 715,
+      "subsubsection": 725
+    }
+  },
+
+  "booktabs": {
+    "toprule": { "width": 0.8 },
+    "midrule": { "width": 0.4 },
+    "bottomrule": { "width": 0.8 },
+    "cmidrule": { "width": 0.3, "trim": 2 },
+    "aboverulesep": 2,
+    "belowrulesep": 2,
+    "defaultcolsep": 4,
+    "showVerticalRules": false,
+    "alternateRows": true,
+    "headerHeight": 22,
+    "rowHeight": 17,
+    "minColWidth": 40,
+    "maxColWidth": 200,
+    "charWidthEstimate": 5.5
+  },
+
+  "fancyhdr": {
+    "headrule": { "show": true, "width": 0.5 },
+    "footrule": { "show": false, "width": 0.3 },
+    "head": {
+      "left": "",
+      "center": "Analysis Report",
+      "right": ""
+    },
+    "foot": {
+      "left": "",
+      "center": "",
+      "right": "Page {page}"
+    }
+  },
+
+  "titlepage": {
+    "show": true,
+    "titleAlign": "center",
+    "accentLine": { "show": false, "width": 1, "margin": 100 },
+    "subtitle": { "show": true, "text": "Strategic Analysis", "size": 12 },
+    "framework": { "show": false, "text": "", "size": 10 },
+    "date": { "show": true, "format": "locale" },
+    "divider": { "show": true, "width": 0.3 }
+  },
+
+  "enumitem": {
+    "bullet": { "marker": "-", "indent": 8, "itemsep": 2 },
+    "enumerate": { "indent": 8, "itemsep": 2 }
+  },
+
+  "parskip": {
+    "parskip": 5,
+    "parindent": 0,
+    "baselineskip": 13
+  },
+
+  "layout": {
+    "pageBreakThreshold": 755,
+    "tableOrphanThreshold": 95
+  },
+
+  "longtable": {
+    "repeatHeader": true,
+    "repeatFooter": false,
+    "breakInside": true,
+    "minRowsBeforeBreak": 2,
+    "minRowsAfterBreak": 2
+  },
+
+  "tabularx": {
+    "columnType": "proportional",
+    "expandToFit": true,
+    "wrapContent": true,
+    "maxCellLines": 2,
+    "truncateOverflow": false,
+    "overflowIndicator": "..."
+  },
+
+  "microtype": {
+    "protrusion": false,
+    "expansion": { "enabled": false, "stretch": 15, "shrink": 15 },
+    "tracking": 0
+  },
+
+  "penalties": {
+    "widow": 100,
+    "orphan": 100,
+    "brokenHyphen": 50
+  }
+}

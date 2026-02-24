@@ -1,0 +1,36 @@
+name: options-council
+version: "1.0"
+description: Multi-option strategic debate - multiple perspectives argue and synthesize
+triggers: [options, council, strategies, multi-option, perspectives]
+requiredContext: [topic]
+outputFormat: markdown
+maxTokens: 65536
+temperature: 0.7
+model: research
+ralphMode: deep
+workflow: options-council
+
+# Multi-option council settings
+settings:
+  minOptions: 3
+  maxOptions: 6
+  defaultOptions: 4
+  optionTypes:
+    - aggressive: "High risk, high reward"
+    - moderate: "Balanced approach"
+    - conservative: "Low risk, steady progress"
+    - innovative: "Unconventional/disruptive"
+    - partnership: "Leverage external resources"
+    - incremental: "Small iterative improvements"
+  comparisonCriteria:
+    - feasibility
+    - roi_potential
+    - time_to_value
+    - resource_requirements
+    - risk_level
+    - strategic_fit
+    - scalability
+  requiresAdvocacy: true
+  requiresCritique: true
+  requiresComparison: true
+  requiresRecommendation: true

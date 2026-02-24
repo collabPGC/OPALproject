@@ -1,0 +1,61 @@
+# Pandoc Report Styling Configuration
+# Use with: pandoc -d report-defaults.yaml input.md -o output.pdf
+
+# Template Settings
+template: eisvogel
+pdf-engine: pdflatex
+
+# Title Page
+variables:
+  titlepage: true
+  titlepage-color: "1a365d"
+  titlepage-text-color: "FFFFFF"
+  titlepage-rule-color: "FFFFFF"
+  titlepage-rule-height: 2
+
+  # Logo (optional - set path when needed)
+  # titlepage-logo: "logo.png"
+
+  # Document formatting
+  documentclass: report
+  fontsize: 11pt
+  geometry: "margin=1in"
+  linestretch: 1.25
+
+  # Colors
+  linkcolor: "0066cc"
+  urlcolor: "0066cc"
+  citecolor: "0066cc"
+
+  # Headers and Footers
+  header-left: ""
+  header-center: ""
+  header-right: "\\thepage"
+  footer-left: "Confidential"
+  footer-center: ""
+  footer-right: "Scout Bot - Claude Opus 4.5"
+
+  # Code blocks
+  listings: true
+  listings-no-page-break: true
+  code-block-font-size: "\\small"
+
+  # Table of Contents
+  toc: true
+  toc-depth: 3
+  toc-own-page: true
+
+  # Appearance
+  colorlinks: true
+  book: false
+  classoption:
+    - oneside
+
+  # Spacing
+  block-headings: true
+
+# Syntax highlighting
+highlight-style: tango
+
+# Number sections
+number-sections: true

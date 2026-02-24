@@ -1,0 +1,34 @@
+# Executive Brief Style - Clean, minimal, professional
+# For C-suite presentations and board materials
+
+template: eisvogel
+pdf-engine: pdflatex
+
+variables:
+  titlepage: true
+  titlepage-color: "0f172a"
+  titlepage-text-color: "FFFFFF"
+  titlepage-rule-color: "3b82f6"
+  titlepage-rule-height: 4
+
+  documentclass: article
+  fontsize: 12pt
+  geometry: "margin=1.25in"
+  linestretch: 1.4
+
+  # Professional blue theme
+  linkcolor: "1e40af"
+  urlcolor: "1e40af"
+
+  header-right: "\\thepage"
+  footer-left: "CONFIDENTIAL"
+  footer-right: "Executive Summary"
+
+  toc: true
+  toc-depth: 2
+  toc-own-page: true
+
+  colorlinks: true
+
+highlight-style: kate
+number-sections: true

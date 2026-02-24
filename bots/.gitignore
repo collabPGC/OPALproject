@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Config with secrets
+config.json
+shared/config/models.json
+
+# WhatsApp auth state
+auth_info*/
+whatsapp-bridge/auth_info*/
+
+# Logs
+*.log
+
+# SQLite databases (local state)
+*.db
+*.db-shm
+*.db-wal
+
+# Environment
+.env

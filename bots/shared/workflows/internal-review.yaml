@@ -1,0 +1,59 @@
+# Internal Review Workflow
+# Self-critique and improvement loop
+
+name: internal-review
+description: Internal team review to improve output quality before delivery
+version: "1.0"
+ralphMode: auto
+maxIterations: 2
+
+# Review configuration
+config:
+  requireCritique: true
+  requireSynthesis: true
+  minConfidence: 0.7
+
+steps:
+  # Initial output
+  - skill: "{{requested_skill}}"
+    input: "{{topic}}"
+    output: initial_output
+    description: "Generate initial response"
+
+  # Internal critique
+  - skill: critique
+    input: |
+      Review this output for quality, accuracy, and completeness:
+
+      {{initial_output}}
+
+      Original request: {{topic}}
+    output: critique_output
+    description: "Critic reviews for weaknesses"
+
+  # Improvement synthesis
+  - skill: synthesize
+    inputs: [initial_output, critique_output]
+    input: |
+      Original output:
+      {{initial_output}}
+
+      Critique:
+      {{critique_output}}
+
+      Produce an improved version that addresses the critique.
+    output: improved_output
+    description: "Synthesize improvements"
+
+  # Optional second round if confidence low
+  - skill: critique
+    condition: "{{confidence}} < 0.8"
+    input: "Final review of: {{improved_output}}"
+    output: final_review
+    description: "Final quality check"
+
+  - skill: synthesize
+    condition: "{{final_review}}"
+    inputs: [improved_output, final_review]
+    output: final_output
+    description: "Final polish"

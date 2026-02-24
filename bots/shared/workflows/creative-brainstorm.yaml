@@ -1,0 +1,21 @@
+# Creative Brainstorm Workflow
+# Multi-perspective ideation
+
+name: creative-brainstorm
+description: Creative brainstorming with diverse perspectives
+version: "1.0"
+ralphMode: auto
+maxIterations: 2
+
+steps:
+  - skill: brainstorm
+    input: "{{topic}}"
+    output: initial_ideas
+
+  - skill: critique
+    input: "Evaluate these ideas critically: {{initial_ideas}}"
+    output: idea_critique
+
+  - skill: synthesize
+    inputs: [initial_ideas, idea_critique]
+    output: refined_ideas

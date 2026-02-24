@@ -1,0 +1,24 @@
+name: critique
+version: "1.0"
+description: Devil's advocate - challenge assumptions and find weaknesses
+triggers: [critique, challenge, review, validate]
+requiredContext: [content]
+outputFormat: markdown
+maxTokens: 65536
+temperature: 0.7
+model: research
+ralphMode: auto
+workflow: null
+
+# Critique settings
+settings:
+  role: "Devil's Advocate"
+  goal: "Challenge assumptions and identify weaknesses"
+  approach: "Constructively adversarial"
+  outputSections:
+    - assumption_tests
+    - logical_flaws
+    - missing_perspectives
+    - risk_identification
+    - alternative_interpretations
+    - strengthening_recommendations

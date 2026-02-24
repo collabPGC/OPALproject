@@ -1,0 +1,235 @@
+# Comprehensive Report Workflow
+# Generates 100-200 page reports through structured section generation
+
+name: comprehensive-report
+description: Generate comprehensive 100K+ word reports with memory-tracked continuity
+version: "1.0"
+ralphMode: deep
+maxIterations: 5
+
+# Report configuration
+config:
+  targetWords: 100000
+  minSections: 12
+  maxSections: 25
+  sectionTargetWords: 5000
+  useExtendedThinking: true
+  thinkingBudget: 15000
+  generatePDF: true
+  maintainMemory: true
+
+# Report structure template
+structure:
+  - id: exec-summary
+    title: Executive Summary
+    type: executive-summary
+    targetWords: 3000
+    dependencies: []  # Written last, synthesizes all
+    writeOrder: last
+
+  - id: introduction
+    title: Introduction and Scope
+    type: content
+    targetWords: 5000
+    dependencies: []
+    subsections:
+      - id: background
+        title: Background and Context
+        targetWords: 1500
+      - id: scope
+        title: Scope and Objectives
+        targetWords: 1500
+      - id: methodology
+        title: Methodology
+        targetWords: 2000
+
+  - id: market-analysis
+    title: Market Analysis
+    type: content
+    targetWords: 8000
+    dependencies: [introduction]
+    subsections:
+      - id: market-size
+        title: Market Size and Growth
+        targetWords: 2500
+      - id: market-segments
+        title: Market Segmentation
+        targetWords: 2500
+      - id: market-trends
+        title: Key Trends and Drivers
+        targetWords: 3000
+
+  - id: competitive-landscape
+    title: Competitive Landscape
+    type: content
+    targetWords: 8000
+    dependencies: [market-analysis]
+    subsections:
+      - id: competitor-profiles
+        title: Competitor Profiles
+        targetWords: 4000
+      - id: competitive-dynamics
+        title: Competitive Dynamics
+        targetWords: 2000
+      - id: positioning
+        title: Positioning Analysis
+        targetWords: 2000
+
+  - id: deep-dive
+    title: Subject Deep-Dive
+    type: content
+    targetWords: 15000
+    dependencies: [competitive-landscape]
+    subsections:
+      - id: core-analysis
+        title: Core Analysis
+        targetWords: 5000
+      - id: detailed-findings
+        title: Detailed Findings
+        targetWords: 5000
+      - id: implications
+        title: Implications
+        targetWords: 5000
+
+  - id: financial-analysis
+    title: Financial Analysis
+    type: content
+    targetWords: 10000
+    dependencies: [deep-dive]
+    subsections:
+      - id: current-state
+        title: Current Financial State
+        targetWords: 3000
+      - id: projections
+        title: Financial Projections
+        targetWords: 4000
+      - id: sensitivities
+        title: Sensitivity Analysis
+        targetWords: 3000
+
+  - id: scenarios
+    title: Scenario Analysis
+    type: content
+    targetWords: 8000
+    dependencies: [financial-analysis]
+    subsections:
+      - id: base-case
+        title: Base Case
+        targetWords: 2000
+      - id: bull-case
+        title: Bull Case
+        targetWords: 2000
+      - id: bear-case
+        title: Bear Case
+        targetWords: 2000
+      - id: stress-test
+        title: Stress Test
+        targetWords: 2000
+
+  - id: risk-assessment
+    title: Risk Assessment
+    type: content
+    targetWords: 6000
+    dependencies: [scenarios]
+    subsections:
+      - id: risk-identification
+        title: Risk Identification
+        targetWords: 2000
+      - id: risk-quantification
+        title: Risk Quantification
+        targetWords: 2000
+      - id: mitigation
+        title: Mitigation Strategies
+        targetWords: 2000
+
+  - id: strategic-options
+    title: Strategic Options
+    type: content
+    targetWords: 10000
+    dependencies: [risk-assessment]
+    subsections:
+      - id: option-1
+        title: Option 1 - Aggressive Growth
+        targetWords: 2500
+      - id: option-2
+        title: Option 2 - Balanced Approach
+        targetWords: 2500
+      - id: option-3
+        title: Option 3 - Conservative Path
+        targetWords: 2500
+      - id: comparison
+        title: Options Comparison
+        targetWords: 2500
+
+  - id: recommendations
+    title: Recommendations
+    type: content
+    targetWords: 8000
+    dependencies: [strategic-options]
+    subsections:
+      - id: primary-recommendation
+        title: Primary Recommendation
+        targetWords: 3000
+      - id: implementation
+        title: Implementation Roadmap
+        targetWords: 3000
+      - id: success-metrics
+        title: Success Metrics
+        targetWords: 2000
+
+  - id: action-plan
+    title: Detailed Action Plan
+    type: content
+    targetWords: 6000
+    dependencies: [recommendations]
+    subsections:
+      - id: immediate
+        title: Immediate Actions (0-30 days)
+        targetWords: 2000
+      - id: short-term
+        title: Short-term (30-90 days)
+        targetWords: 2000
+      - id: medium-term
+        title: Medium-term (90-365 days)
+        targetWords: 2000
+
+  - id: appendices
+    title: Appendices
+    type: appendix
+    targetWords: 5000
+    dependencies: [action-plan]
+    subsections:
+      - id: data-tables
+        title: Detailed Data Tables
+        targetWords: 2000
+      - id: methodology-detail
+        title: Methodology Details
+        targetWords: 1500
+      - id: glossary
+        title: Glossary of Terms
+        targetWords: 1500
+
+# Execution steps
+steps:
+  - skill: research
+    input: "Generate outline for comprehensive report on: {{topic}}"
+    output: outline
+    extendedThinking: true
+
+  - skill: report
+    input: "{{outline}}"
+    output: sections
+    iterative: true
+    useMemory: true
+
+  - skill: synthesize
+    inputs: [outline, sections]
+    output: final_report
+
+  - skill: critique
+    input: "{{final_report}}"
+    output: quality_review
+
+  - skill: publish
+    inputs: [final_report, quality_review]
+    output: published_document

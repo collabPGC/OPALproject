@@ -1,0 +1,27 @@
+name: dialectic
+version: "1.0"
+description: Thesis-antithesis-synthesis debate for deeper truth
+triggers: [dialectic, debate, thesis, argue]
+requiredContext: [topic]
+outputFormat: markdown
+maxTokens: 65536
+temperature: 0.7
+model: research
+ralphMode: deep
+workflow: dialectic-debate
+
+# Dialectic settings
+settings:
+  rounds: 2
+  agents:
+    thesis: analyst
+    antithesis: critic
+    synthesis: synthesizer
+    validation: validator
+  useCrew: true
+  outputSections:
+    - thesis_presentation
+    - counter_arguments
+    - synthesis
+    - validation
+    - final_position

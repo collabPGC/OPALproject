@@ -1,0 +1,19 @@
+name: brainstorm
+version: "1.0"
+description: Creative brainstorming with probabilistic analysis
+triggers: [brainstorm, ideate, ideas]
+requiredContext: [topic]
+outputFormat: markdown
+maxTokens: 65536
+temperature: 0.8
+model: auto
+ralphMode: auto
+workflow: null
+
+# Quality assurance - ALWAYS RUN BY DEFAULT
+qualityAssurance:
+  enabled: true
+  mode: team-review        # ideator -> analyst -> critic -> synthesizer
+  autoApply: true          # Run QA automatically, not on request
+  requireCritique: true    # Always run through critic
+  requireValidation: true  # Must pass validator before output

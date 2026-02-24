@@ -1,0 +1,19 @@
+name: research
+version: "1.0"
+description: Deep research and analysis with probabilistic hypotheses
+triggers: [research, analyze, investigate]
+requiredContext: [topic]
+outputFormat: markdown
+maxTokens: 65536
+temperature: 0.7
+model: auto
+ralphMode: auto
+workflow: null
+
+# Quality assurance - ALWAYS RUN BY DEFAULT
+qualityAssurance:
+  enabled: true
+  mode: team-review        # researcher -> analyst -> critic -> synthesizer
+  autoApply: true          # Run QA automatically, not on request
+  requireCritique: true    # Always run through critic
+  requireValidation: true  # Must pass validator before output

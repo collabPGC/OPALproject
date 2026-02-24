@@ -1,0 +1,12 @@
+{
+  "name": "spark-bot-v2",
+  "version": "2.0.0",
+  "type": "module",
+  "main": "index.js",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.2",
+    "js-yaml": "^4.1.1",
+    "pdf-parse": "^2.4.5",
+    "ws": "^8.14.2"
+  }
+}

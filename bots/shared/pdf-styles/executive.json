@@ -1,0 +1,165 @@
+{
+  "name": "Executive",
+  "description": "Premium executive style with dark headers and gold accents - for board presentations",
+  "version": "2.0",
+
+  "_comment": "Executive style inspired by LaTeX memoir class with elegant typography",
+
+  "document": {
+    "class": "memoir",
+    "paper": "A4",
+    "orientation": "portrait"
+  },
+
+  "geometry": {
+    "top": 55,
+    "bottom": 55,
+    "left": 55,
+    "right": 55,
+    "headheight": 18,
+    "headsep": 25,
+    "footskip": 35
+  },
+
+  "xcolor": {
+    "primary": "#0f172a",
+    "secondary": "#1e293b",
+    "accent": "#ca8a04",
+    "text": "#334155",
+    "lightText": "#64748b",
+    "tableHeaderBg": "#0f172a",
+    "tableHeaderFg": "#ffffff",
+    "tableRowAlt": "#f8fafc",
+    "ruleLine": "#94a3b8"
+  },
+
+  "fonts": {
+    "body": { "family": "Times-Roman", "size": 11 },
+    "title": { "family": "Helvetica-Bold", "size": 26 },
+    "h1": { "family": "Helvetica-Bold", "size": 20 },
+    "h2": { "family": "Helvetica-Bold", "size": 15 },
+    "h3": { "family": "Helvetica-Bold", "size": 12 },
+    "h4": { "family": "Helvetica-Bold", "size": 11 },
+    "tableHeader": { "family": "Helvetica-Bold", "size": 9 },
+    "tableBody": { "family": "Helvetica", "size": 9 },
+    "header": { "family": "Helvetica-Bold", "size": 9 },
+    "footer": { "family": "Times-Italic", "size": 9 },
+    "pageNum": { "family": "Helvetica", "size": 9 }
+  },
+
+  "titlesec": {
+    "chapter": {
+      "spaceBefore": 28,
+      "spaceAfter": 14,
+      "rule": { "show": true, "width": 2.5, "length": 280 }
+    },
+    "section": {
+      "spaceBefore": 22,
+      "spaceAfter": 10,
+      "rule": { "show": true, "width": 2, "length": 220 }
+    },
+    "subsection": {
+      "spaceBefore": 14,
+      "spaceAfter": 7,
+      "rule": { "show": true, "width": 1, "length": 100 }
+    },
+    "subsubsection": {
+      "spaceBefore": 10,
+      "spaceAfter": 5,
+      "rule": { "show": false }
+    },
+    "orphanThreshold": {
+      "chapter": 640,
+      "section": 660,
+      "subsection": 690,
+      "subsubsection": 710
+    }
+  },
+
+  "booktabs": {
+    "toprule": { "width": 1.5 },
+    "midrule": { "width": 1.0 },
+    "bottomrule": { "width": 1.5 },
+    "cmidrule": { "width": 0.6, "trim": 3 },
+    "aboverulesep": 4,
+    "belowrulesep": 4,
+    "defaultcolsep": 5,
+    "showVerticalRules": true,
+    "alternateRows": true,
+    "headerHeight": 26,
+    "rowHeight": 20,
+    "minColWidth": 45,
+    "maxColWidth": 220,
+    "charWidthEstimate": 6
+  },
+
+  "fancyhdr": {
+    "headrule": { "show": true, "width": 2 },
+    "footrule": { "show": true, "width": 0.5 },
+    "head": {
+      "left": "CONFIDENTIAL",
+      "center": "",
+      "right": ""
+    },
+    "foot": {
+      "left": "",
+      "center": "Strategic Analysis - Executive Summary",
+      "right": "Page {page} of {pages}"
+    }
+  },
+
+  "titlepage": {
+    "show": true,
+    "titleAlign": "center",
+    "accentLine": { "show": true, "width": 4, "margin": 80 },
+    "subtitle": { "show": true, "text": "Executive Briefing", "size": 16 },
+    "framework": { "show": true, "text": "Strategic Analysis Framework", "size": 12 },
+    "date": { "show": true, "format": "locale" },
+    "divider": { "show": true, "width": 0.8 }
+  },
+
+  "enumitem": {
+    "bullet": { "marker": "-", "indent": 12, "itemsep": 3 },
+    "enumerate": { "indent": 12, "itemsep": 3 }
+  },
+
+  "parskip": {
+    "parskip": 7,
+    "parindent": 0,
+    "baselineskip": 15
+  },
+
+  "layout": {
+    "pageBreakThreshold": 740,
+    "tableOrphanThreshold": 120
+  },
+
+  "longtable": {
+    "repeatHeader": true,
+    "repeatFooter": true,
+    "breakInside": true,
+    "minRowsBeforeBreak": 4,
+    "minRowsAfterBreak": 3
+  },
+
+  "tabularx": {
+    "columnType": "proportional",
+    "expandToFit": true,
+    "wrapContent": true,
+    "maxCellLines": 4,
+    "truncateOverflow": false,
+    "overflowIndicator": "..."
+  },
+
+  "microtype": {
+    "protrusion": false,
+    "expansion": { "enabled": false, "stretch": 25, "shrink": 25 },
+    "tracking": 0
+  },
+
+  "penalties": {
+    "widow": 200,
+    "orphan": 200,
+    "brokenHyphen": 150
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "bots-shared",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./logger": "./logger.js",
+    "./mattermost": "./mattermost.js",
+    "./jira": "./jira.js",
+    "./classify": "./classify.js",
+    "./websocket": "./websocket.js",
+    "./helpers": "./helpers.js",
+    "./social": "./social.js",
+    "./pdf-utils": "./pdf-utils.js",
+    "./memory": "./memory.js",
+    "./stores": "./stores/index.js",
+    "./stores/*": "./stores/*.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
+    "@google/generative-ai": "^0.24.1",
+    "@lancedb/lancedb": "^0.23.0",
+    "@xenova/transformers": "^2.17.2",
+    "better-sqlite3": "^11.10.0",
+    "form-data": "^4.0.5",
+    "graphology": "^0.26.0",
+    "graphology-traversal": "^0.3.1",
+    "mammoth": "^1.11.0",
+    "openai": "^6.15.0",
+    "pdf-parse": "^2.4.5",
+    "pdfkit": "^0.17.2",
+    "ws": "^8.14.2",
+    "xlsx": "^0.18.5"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

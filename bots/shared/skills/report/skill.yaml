@@ -1,0 +1,26 @@
+name: report
+version: "1.0"
+description: Long-form report generation (100+ pages, 100K+ words)
+triggers: [report, document, whitepaper, analysis]
+requiredContext: [topic]
+outputFormat: markdown
+maxTokens: 65536
+temperature: 0.7
+model: research
+ralphMode: deep
+workflow: null
+
+# Report generation settings
+# NOTE: These are CAPACITY limits, not targets
+# Reports should be as long as the content requires, not artificially padded
+settings:
+  # No minimum - produce what's needed
+  maxWordCount: 150000         # Upper limit to prevent runaway generation
+  maxPages: 300                # Capable of very long documents
+  sectionMaxWords: 10000       # Individual sections can be substantial
+  useMemory: true              # Track continuity across sections
+  generateOutlineFirst: true   # Outline determines scope
+  iterativeRefinement: true    # Quality over arbitrary length
+  extendedThinking: true
+  thinkingBudget: 15000
+  # Quality principle: depth where needed, brevity where appropriate

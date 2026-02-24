@@ -1,0 +1,23 @@
+name: synthesize
+version: "1.0"
+description: Synthesize multiple perspectives into coherent, actionable output
+triggers: [synthesize, combine, merge, integrate]
+requiredContext: [inputs]
+outputFormat: markdown
+maxTokens: 65536
+temperature: 0.6
+model: research
+ralphMode: auto
+workflow: null
+
+# Synthesis settings
+settings:
+  role: "Synthesis Editor"
+  goal: "Create unity from diverse viewpoints"
+  approach: "Hegelian synthesis - thesis + antithesis = higher truth"
+  outputSections:
+    - key_agreements
+    - productive_tensions
+    - resolution_framework
+    - integrated_recommendations
+    - remaining_uncertainties

@@ -1,0 +1,11 @@
+name: analyze
+version: "1.0"
+description: Deep file and document analysis
+triggers: [analyze, review, examine]
+requiredContext: [content, filename]
+outputFormat: markdown
+maxTokens: 65536
+temperature: 0.6
+model: auto
+ralphMode: auto
+workflow: null

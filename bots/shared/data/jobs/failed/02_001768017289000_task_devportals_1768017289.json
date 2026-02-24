@@ -1,0 +1,27 @@
+{
+  "id": "task_devportals_1768017289",
+  "type": "research",
+  "priority": 2,
+  "status": "failed",
+  "channelId": "8p9dn9jduir5xxjutpa1561nyw",
+  "requestedBy": "hubert",
+  "title": "Research: Developer portals for RLDatix and PolicyTech",
+  "description": "Research which providers have developer portals and API access processes",
+  "data": {
+    "topic": "Find developer portals and API access processes for:\n1. RLDatix/PolicyStat - healthcare policy management\n2. PolicyTech (NAVEX) - policy management\n\nFor each, find: developer portal URL, API docs, access request process, approval timeline, sandbox availability.",
+    "context": "Need to integrate with policy management systems for voice agent",
+    "urls": [
+      "https://www.rldatix.com",
+      "https://rldatix-public.zendesk.com",
+      "https://helpfiles.policytech.com"
+    ]
+  },
+  "createdAt": 1768017289000,
+  "updatedAt": 1768017314735,
+  "scheduledFor": null,
+  "retries": 3,
+  "maxRetries": 3,
+  "error": "Model not found or provider not enabled: research",
+  "startedAt": 1768017312619,
+  "failedAt": 1768017314735
+}

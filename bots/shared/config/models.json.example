@@ -1,0 +1,91 @@
+{
+  "providers": {
+    "anthropic": {
+      "enabled": true,
+      "apiKey": "YOUR_ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-5-20251101": {
+          "tier": "premium",
+          "capabilities": ["reasoning", "code", "vision", "tool_use", "deep_thinking"],
+          "contextWindow": 200000,
+          "outputTokens": 16384
+        },
+        "claude-sonnet-4-20250514": {
+          "tier": "standard",
+          "capabilities": ["reasoning", "code", "vision", "tool_use"],
+          "contextWindow": 200000,
+          "outputTokens": 8192
+        }
+      }
+    },
+    "openai": {
+      "enabled": true,
+      "apiKey": "YOUR_OPENAI_API_KEY",
+      "models": {
+        "gpt-5.2-thinking": {
+          "tier": "premium",
+          "capabilities": ["reasoning", "code", "vision", "tool_use", "deep_thinking"],
+          "contextWindow": 200000,
+          "outputTokens": 32768
+        },
+        "gpt-5.2-instant": {
+          "tier": "standard",
+          "capabilities": ["reasoning", "code", "vision", "tool_use"],
+          "contextWindow": 200000,
+          "outputTokens": 16384
+        }
+      }
+    },
+    "google": {
+      "enabled": true,
+      "apiKey": "YOUR_GOOGLE_API_KEY",
+      "models": {
+        "gemini-3-pro": {
+          "tier": "premium",
+          "capabilities": ["reasoning", "code", "vision", "deep_thinking"],
+          "contextWindow": 2000000,
+          "outputTokens": 65536
+        },
+        "gemini-3-flash": {
+          "tier": "standard",
+          "capabilities": ["reasoning", "code", "fast", "long-context"],
+          "contextWindow": 1000000,
+          "outputTokens": 8192
+        }
+      }
+    },
+    "glm": {
+      "enabled": true,
+      "apiKey": "YOUR_OPENROUTER_API_KEY",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "models": {
+        "zhipu/glm-4-plus": {
+          "tier": "standard",
+          "capabilities": ["reasoning", "code", "chinese", "tool_use", "vision"],
+          "contextWindow": 128000,
+          "outputTokens": 4096
+        }
+      }
+    }
+  },
+  "routing": {
+    "research": {
+      "preferred": ["claude-opus-4-5-20251101", "gpt-5.2-thinking", "gemini-3-pro"],
+      "requiredCapabilities": ["reasoning"]
+    },
+    "code": {
+      "preferred": ["claude-opus-4-5-20251101", "claude-sonnet-4-20250514"],
+      "requiredCapabilities": ["code"]
+    },
+    "general": {
+      "preferred": ["claude-sonnet-4-20250514", "gpt-5.2-instant", "gemini-3-flash"],
+      "requiredCapabilities": []
+    }
+  },
+  "defaults": {
+    "taskType": "general",
+    "fallbackEnabled": true,
+    "retryOnFailure": true,
+    "maxRetries": 2
+  }
+}

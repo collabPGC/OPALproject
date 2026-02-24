@@ -1,0 +1,173 @@
+{
+  "name": "Professional",
+  "description": "Clean, corporate style with blue accents - suitable for executive reports",
+  "version": "2.1",
+
+  "_comment": "Style structure modeled after LaTeX packages: geometry, fancyhdr, titlesec, booktabs, xcolor, microtype, longtable",
+
+  "document": {
+    "class": "report",
+    "paper": "A4",
+    "orientation": "portrait"
+  },
+
+  "geometry": {
+    "top": 50,
+    "bottom": 50,
+    "left": 50,
+    "right": 50,
+    "headheight": 15,
+    "headsep": 20,
+    "footskip": 30
+  },
+
+  "xcolor": {
+    "primary": "#1a365d",
+    "secondary": "#2962a3",
+    "accent": "#3b82f6",
+    "text": "#334155",
+    "lightText": "#64748b",
+    "tableHeaderBg": "#2962a3",
+    "tableHeaderFg": "#ffffff",
+    "tableRowAlt": "#f1f5f9",
+    "ruleLine": "#cbd5e0"
+  },
+
+  "fonts": {
+    "body": { "family": "Helvetica", "size": 10 },
+    "title": { "family": "Helvetica-Bold", "size": 24 },
+    "h1": { "family": "Helvetica-Bold", "size": 18 },
+    "h2": { "family": "Helvetica-Bold", "size": 14 },
+    "h3": { "family": "Helvetica-Bold", "size": 11 },
+    "h4": { "family": "Helvetica-Bold", "size": 10 },
+    "tableHeader": { "family": "Helvetica-Bold", "size": 8 },
+    "tableBody": { "family": "Helvetica", "size": 8 },
+    "header": { "family": "Helvetica-Bold", "size": 8 },
+    "footer": { "family": "Helvetica-Oblique", "size": 8 },
+    "pageNum": { "family": "Helvetica", "size": 9 }
+  },
+
+  "titlesec": {
+    "chapter": {
+      "spaceBefore": 24,
+      "spaceAfter": 12,
+      "rule": { "show": true, "width": 2, "length": 250 }
+    },
+    "section": {
+      "spaceBefore": 18,
+      "spaceAfter": 8,
+      "rule": { "show": true, "width": 1.5, "length": 200 }
+    },
+    "subsection": {
+      "spaceBefore": 12,
+      "spaceAfter": 6,
+      "rule": { "show": false }
+    },
+    "subsubsection": {
+      "spaceBefore": 8,
+      "spaceAfter": 4,
+      "rule": { "show": false }
+    },
+    "orphanThreshold": {
+      "chapter": 660,
+      "section": 680,
+      "subsection": 700,
+      "subsubsection": 720
+    }
+  },
+
+  "booktabs": {
+    "toprule": { "width": 1.2 },
+    "midrule": { "width": 0.8 },
+    "bottomrule": { "width": 1.2 },
+    "cmidrule": { "width": 0.5, "trim": 2 },
+    "aboverulesep": 3,
+    "belowrulesep": 3,
+    "defaultcolsep": 4,
+    "showVerticalRules": false,
+    "alternateRows": true,
+    "headerHeight": 24,
+    "rowHeight": 18,
+    "minColWidth": 40,
+    "maxColWidth": 200,
+    "charWidthEstimate": 5.5
+  },
+
+  "fancyhdr": {
+    "headrule": { "show": true, "width": 1 },
+    "footrule": { "show": false, "width": 0.5 },
+    "head": {
+      "left": "",
+      "center": "Scout AI Analysis",
+      "right": ""
+    },
+    "foot": {
+      "left": "McKinsey/HBS Analytical Framework",
+      "center": "",
+      "right": "Page {page} of {pages}"
+    }
+  },
+
+  "titlepage": {
+    "show": true,
+    "titleAlign": "center",
+    "accentLine": { "show": true, "width": 3, "margin": 100 },
+    "subtitle": { "show": true, "text": "Scout AI Deep Analysis", "size": 14 },
+    "framework": { "show": true, "text": "McKinsey/HBS Analytical Framework", "size": 11 },
+    "date": { "show": true, "format": "locale" },
+    "divider": { "show": true, "width": 0.5 }
+  },
+
+  "enumitem": {
+    "bullet": { "marker": "-", "indent": 10, "itemsep": 2 },
+    "enumerate": { "indent": 10, "itemsep": 2 }
+  },
+
+  "parskip": {
+    "parskip": 6,
+    "parindent": 0,
+    "baselineskip": 14
+  },
+
+  "layout": {
+    "pageBreakThreshold": 750,
+    "tableOrphanThreshold": 100
+  },
+
+  "longtable": {
+    "_comment": "Multi-page table behavior (inspired by LaTeX longtable package)",
+    "repeatHeader": true,
+    "repeatFooter": false,
+    "breakInside": true,
+    "minRowsBeforeBreak": 3,
+    "minRowsAfterBreak": 2
+  },
+
+  "tabularx": {
+    "_comment": "Column width behavior (inspired by LaTeX tabularx package)",
+    "columnType": "proportional",
+    "expandToFit": true,
+    "wrapContent": true,
+    "maxCellLines": 3,
+    "truncateOverflow": false,
+    "overflowIndicator": "..."
+  },
+
+  "microtype": {
+    "_comment": "Micro-typography adjustments (inspired by LaTeX microtype package)",
+    "protrusion": false,
+    "expansion": {
+      "enabled": false,
+      "stretch": 20,
+      "shrink": 20
+    },
+    "tracking": 0
+  },
+
+  "penalties": {
+    "_comment": "Widow/orphan control (inspired by LaTeX \\widowpenalty, \\clubpenalty)",
+    "widow": 150,
+    "orphan": 150,
+    "brokenHyphen": 100
+  }
+}

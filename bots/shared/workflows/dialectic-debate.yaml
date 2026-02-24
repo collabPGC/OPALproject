@@ -1,0 +1,76 @@
+# Dialectic Debate Workflow
+# Thesis-Antithesis-Synthesis for deeper truth
+
+name: dialectic-debate
+description: Internal team debate to stress-test and improve output quality
+version: "1.0"
+ralphMode: deep
+maxIterations: 3
+
+# Debate configuration
+config:
+  rounds: 2
+  requireValidation: true
+  preserveHistory: true
+  useCrew: true
+
+# The debate process
+steps:
+  # Round 1
+  - skill: research
+    role: analyst
+    action: thesis
+    input: "Present a strong thesis on: {{topic}}"
+    output: thesis_r1
+    description: "Analyst presents initial thesis"
+
+  - skill: critique
+    role: critic
+    action: antithesis
+    input: "Challenge this thesis: {{thesis_r1}}"
+    output: antithesis_r1
+    description: "Critic presents counter-arguments"
+
+  - skill: synthesize
+    role: synthesizer
+    action: synthesis
+    inputs: [thesis_r1, antithesis_r1]
+    output: synthesis_r1
+    description: "Synthesizer integrates perspectives"
+
+  # Round 2 (refinement)
+  - skill: research
+    role: analyst
+    action: thesis
+    input: "Refine your thesis considering: {{synthesis_r1}}"
+    output: thesis_r2
+    description: "Analyst refines thesis"
+
+  - skill: critique
+    role: critic
+    action: antithesis
+    input: "Challenge the refined thesis: {{thesis_r2}}"
+    output: antithesis_r2
+    description: "Critic challenges refined thesis"
+
+  - skill: synthesize
+    role: synthesizer
+    action: synthesis
+    inputs: [thesis_r2, antithesis_r2, synthesis_r1]
+    output: synthesis_r2
+    description: "Final synthesis"
+
+  # Validation gate
+  - skill: critique
+    role: validator
+    action: validate
+    input: "Validate this synthesis for soundness and actionability: {{synthesis_r2}}"
+    output: validation
+    description: "Validator ensures quality"
+
+  # Final output
+  - skill: synthesize
+    action: finalize
+    inputs: [synthesis_r2, validation]
+    output: final_output
+    description: "Produce final validated output"

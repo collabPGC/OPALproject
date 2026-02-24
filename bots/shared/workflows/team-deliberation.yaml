@@ -1,0 +1,136 @@
+# Team Deliberation Workflow
+# Full crew roundtable - all perspectives contribute
+
+name: team-deliberation
+description: Multi-agent team discussion where all perspectives contribute and respond
+version: "1.0"
+ralphMode: deep
+maxIterations: 3
+
+# Team configuration
+config:
+  deliberationStyle: roundtable
+  allowCrossResponse: true
+  requireConsensus: false
+  minPerspectives: 4
+  maxPerspectives: 8
+
+# The deliberation team
+team:
+  - id: researcher
+    role: Senior Research Analyst
+    perspective: "Evidence and data-driven analysis"
+    speaks: first
+
+  - id: analyst
+    role: Strategic Analyst
+    perspective: "Frameworks and strategic implications"
+    speaks: early
+
+  - id: critic
+    role: Devil's Advocate
+    perspective: "Risks, weaknesses, and counter-arguments"
+    speaks: middle
+
+  - id: ideator
+    role: Creative Director
+    perspective: "Innovation and unconventional approaches"
+    speaks: middle
+
+  - id: pm_expert
+    role: Senior Project Manager
+    perspective: "Implementation feasibility and execution"
+    speaks: middle
+
+  - id: tech_expert
+    role: Technical Architect
+    perspective: "Technical implications and constraints"
+    speaks: middle
+
+  - id: validator
+    role: Quality Assurance Lead
+    perspective: "Quality, accuracy, and completeness"
+    speaks: late
+
+  - id: synthesizer
+    role: Synthesis Editor
+    perspective: "Integration and final recommendations"
+    speaks: last
+
+# Deliberation phases
+steps:
+  # Round 1: Initial perspectives
+  - phase: opening_perspectives
+    description: "Each team member provides initial perspective"
+    parallel: false
+    agents: [researcher, analyst, critic, ideator]
+    action: present
+    input: "Provide your initial perspective on: {{topic}}"
+    output: initial_perspectives
+
+  # Round 2: Cross-response
+  - phase: cross_response
+    description: "Team members respond to each other"
+    parallel: false
+    agents: [pm_expert, tech_expert, critic]
+    action: respond
+    input: |
+      Previous perspectives:
+      {{initial_perspectives}}
+
+      Respond to your colleagues. What do you agree with? Disagree with? What's missing?
+    output: cross_responses
+
+  # Round 3: Refinement
+  - phase: refinement
+    description: "Refined positions after hearing others"
+    parallel: true
+    agents: [researcher, analyst, ideator]
+    action: refine
+    input: |
+      Initial perspectives: {{initial_perspectives}}
+      Responses: {{cross_responses}}
+
+      Refine your position considering colleagues' input.
+    output: refined_positions
+
+  # Round 4: Quality check
+  - phase: quality_gate
+    description: "Validator ensures quality"
+    agents: [validator]
+    action: validate
+    input: |
+      All deliberation so far:
+      {{initial_perspectives}}
+      {{cross_responses}}
+      {{refined_positions}}
+
+      Assess quality, identify gaps, flag issues.
+    output: quality_assessment
+
+  # Round 5: Final synthesis
+  - phase: synthesis
+    description: "Synthesizer integrates all perspectives"
+    agents: [synthesizer]
+    action: synthesize
+    input: |
+      FULL DELIBERATION:
+
+      Initial Perspectives:
+      {{initial_perspectives}}
+
+      Cross-Responses:
+      {{cross_responses}}
+
+      Refined Positions:
+      {{refined_positions}}
+
+      Quality Assessment:
+      {{quality_assessment}}
+
+      Create a comprehensive synthesis that:
+      1. Captures key insights from each perspective
+      2. Resolves conflicts where possible
+      3. Acknowledges remaining tensions
+      4. Provides clear recommendations
+    output: final_synthesis

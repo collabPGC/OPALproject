@@ -1,0 +1,40 @@
+{
+  "tasks": [],
+  "completed": [
+    {
+      "id": "task_font_orphan_fix_012",
+      "type": "file_process",
+      "priority": 0,
+      "status": "completed",
+      "channelId": "erieukccw3nyfmjgwrgm14gyre",
+      "requestedBy": "ralph",
+      "title": "Process file: LYNA_Master_Financial_Model.xlsx",
+      "description": "Test font and orphan header fixes",
+      "data": {
+        "fileId": "s8b51sogyty99ygceimw5wetoe",
+        "fileName": "LYNA_Master_Financial_Model.xlsx",
+        "fileType": "xlsx"
+      },
+      "createdAt": 1767510000000,
+      "retryCount": 0,
+      "startedAt": 1767508712209,
+      "updatedAt": 1767509069765,
+      "completedAt": 1767509069765,
+      "result": {
+        "type": "spreadsheet",
+        "summary": {
+          "sheets": 8,
+          "rows": 7972,
+          "formulas": 303,
+          "hasComplexFormulas": false
+        }
+      }
+    }
+  ],
+  "failed": [],
+  "stats": {
+    "totalCreated": 19,
+    "totalCompleted": 19,
+    "totalFailed": 0
+  }
+}
