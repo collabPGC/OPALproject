@@ -22,6 +22,7 @@ import observationMode from './observation-mode.js';
 import dailyDigest from './daily-digest.js';
 import companyState from './company-state.js';
 import documentManager from './document-manager.js';
+import nerveCenter from './nerve-center/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -38,6 +39,7 @@ const state = {
 
 const MAX_HISTORY = 20; // Messages per channel
 const MAX_RESPONSE_LENGTH = 4000; // Mattermost post limit
+const activeRequests = new Set(); // Concurrency guard: post IDs currently being processed
 
 // ── Logger ──
 function log(level, message, data = {}) {
@@ -83,12 +85,23 @@ async function main() {
   documentManager.init(config.gtm?.documents || {}, log);
   log('info', 'Document manager initialized');
 
+  // Init Operations Nerve Center ("Atlas")
+  nerveCenter.init(config.gtm?.nerveCenter || {}, log);
+  // Give Atlas the ops channel — use digest channel as default posting target
+  nerveCenter.setOpsChannel(config.gtm?.nerveCenter?.channelId || config.gtm?.digest?.channelId || null);
+  dailyDigest.setNerveCenter(nerveCenter);
+  log('info', 'Nerve Center initialized');
+
   log('info', 'Shared modules initialized');
 
   // Connect WebSocket
   const wsManager = createWebSocketManager(config, handleWebSocketEvent);
   await wsManager.connect();
   state.botUserId = wsManager.getBotUserId();
+
+  // Pass bot user ID to coaching engine (needed for DM channel creation)
+  const { default: coaching } = await import('./nerve-center/coaching.js');
+  coaching.setBotUserId(state.botUserId);
 
   log('info', 'GTM Bot connected', { botUserId: state.botUserId });
 }
@@ -114,6 +127,17 @@ function handleWebSocketEvent(event, botUserId) {
 
 // ── Post Handler ──
 async function handlePost(post, botUserId, eventData) {
+  // Concurrency guard: skip if already processing this post
+  if (activeRequests.has(post.id)) return;
+  activeRequests.add(post.id);
+  try {
+    await _handlePost(post, botUserId, eventData);
+  } finally {
+    activeRequests.delete(post.id);
+  }
+}
+
+async function _handlePost(post, botUserId, eventData) {
   // Skip own messages
   if (post.user_id === botUserId) return;
 
@@ -138,8 +162,8 @@ async function handlePost(post, botUserId, eventData) {
                       isDM;
 
   // Check for explicit commands (always respond)
-  // Includes original 6 GTM personas + 8 technical personas
-  const hasCommand = /^!(?:strategist|strategy|athena|product|priya|po|growth|marketing|gtm|maya|sales|bd|rex|deals|finance|kai|budget|runway|compliance|ops|suki|regulatory|legal|team|software|marcus|arch|enterprise|helena|ehr|fhir|security|cyrus|hipaa|cloud|nimbus|infra|healthcare|vera|hc|clinical|claire|doc|ml|tensor|ai|fda|regina|reg)/i.test(post.message?.trim());
+  // Includes original 6 GTM personas + 8 technical personas + Atlas nerve center
+  const hasCommand = /^!(?:strategist|strategy|athena|product|priya|po|growth|marketing|gtm|maya|sales|bd|rex|deals|finance|kai|budget|runway|compliance|ops|suki|regulatory|legal|team|software|marcus|arch|enterprise|helena|ehr|fhir|security|cyrus|hipaa|cloud|nimbus|infra|healthcare|vera|hc|clinical|claire|doc|ml|tensor|ai|fda|regina|reg|atlas|onc|ops-center|audit-data-room|objection-drill|hospital-prep|sprint|compliance-check|gap-closure)/i.test(post.message?.trim());
 
   if (!isMentioned && !hasCommand) return;
 
@@ -179,6 +203,16 @@ async function handlePost(post, botUserId, eventData) {
 
   if (/^!team\s+doc\s/i.test(text.trim())) {
     await handleDocCommand(channelId, post.id, text, post.user_id);
+    return;
+  }
+
+  // Atlas / Operations Nerve Center commands
+  if (nerveCenter.isAtlasCommand(text.trim())) {
+    const ctx = {
+      postMessage: (ch, msg, rootId) => mm.postMessage(ch, msg, rootId),
+      log,
+    };
+    await nerveCenter.handleAtlasCommand(text.trim(), channelId, post.id, post.user_id, ctx);
     return;
   }
 
@@ -300,6 +334,47 @@ function buildFullSystemPrompt(persona, channelId) {
 
 **Market Window:** 18-24 months before well-funded incumbents recognize the nurse-focused clinical intelligence opportunity.`);
 
+  // Current stage & priorities (always included)
+  parts.push(`## CURRENT STAGE — READ THIS FIRST
+
+**Stage:** Pre-seed startup, 3 months into development (started ~Nov 2025). No revenue, no pilot, no LOI yet.
+**Date context:** It is February 2026.
+
+### Critical Context: Mt Sinai Innovation Program
+Ruth Okyere (CEO) is CURRENTLY participating in the Mount Sinai (NYC) Innovation Program. This is our primary beachhead pathway:
+- Ruth is an RN at Mount Sinai — she has insider access and credibility
+- The innovation program is an active channel for vetting new clinical technology
+- Mt Sinai is a large academic medical center with resources to pilot and validate
+- This is our best path to a first pilot, first LOI, and clinical validation data
+
+### Immediate Priorities (Next 30-60 days)
+1. **Leverage Mt Sinai Innovation Program** — Map the program structure, key stakeholders, decision-makers, and what it takes to get a pilot approved through this channel
+2. **Secure first LOI** — Even a non-binding letter of intent from Mt Sinai would validate demand for investors
+3. **Build working demo** — iPhone-based LYNA demo for policy lookup + voice communication
+4. **Prepare investor materials** — Data room, pitch deck, financial model
+
+### Human Team — Available for Tasks
+These are the REAL people who will execute. When you give guidance, assign specific tasks to specific people:
+| Person | Role | What they can do | Availability |
+|--------|------|------------------|--------------|
+| **Ruth Okyere** | CEO, RN at Mt Sinai | Hospital meetings, clinical relationships, innovation program, nursing domain expertise, investor pitches | On the ground at Mt Sinai |
+| **Hubert Williams** | Cloud/AI Architect | Technical demos, platform development, pitch materials, data room | Full-time |
+| **Alex Harris** | Embedded/Firmware Engineer | Hardware prototyping, ESP32 dev, device strategy | Full-time |
+| **Kwaku** | ESP32 Hardware Dev | Hardware prototyping, PCB design | Available |
+| **Kofi Agyeman** | General | Research, outreach, admin tasks | Available |
+
+### What "Actionable" Means for This Team
+You are augmenting a 5-person startup. They need SPECIFIC, EXECUTABLE guidance — not strategy decks. Every response should include:
+- **WHO** specifically should do this (Ruth, Hubert, Alex, Kwaku, or Kofi)
+- **HOW** to do it — step by step, not just "reach out to stakeholders"
+- **WHAT to say** — Draft emails, talking points, questions to ask, scripts for conversations
+- **WHO to contact** — Specific roles (e.g., "Director of Nursing Innovation", "VP Clinical Operations"), and how to find them
+- **WHAT to ask for** — Specific asks (e.g., "Ask for a 30-min intro meeting to present LYNA", not just "build relationships")
+- **TEMPLATES** — Provide actual email drafts, meeting agendas, one-pagers they can use immediately
+- **TIMELINE** — When each step should happen (this week, next week, within 30 days)
+
+NEVER give vague advice like "engage stakeholders" or "build relationships" without specifying exactly how, with whom, and what to say.`);
+
   // Institutional memory context
   try {
     const memoryContext = institutionalMemory.getContext({
@@ -362,10 +437,15 @@ IMPORTANT: These are the team members. When referring to teammates, ALWAYS use t
   // Response guidelines
   parts.push(`## Response Guidelines
 - You are speaking as ${persona.name} (${persona.label}) on the GTM team for OPAL/LYNA
-- Keep responses focused and actionable
-- When you identify a decision, insight, or action item, note it clearly
-- Reference other team members by their real names (Athena, Priya, Maya, Rex, Kai, Suki) and tell users how to summon them
-- Stay in character but be collaborative`);
+- You are AUGMENTING a 5-person startup team. Your job is to make them more effective by giving them specific, actionable guidance they can execute TODAY.
+- **Every action item must name a person** (Ruth, Hubert, Alex, Kwaku, or Kofi) and include a concrete next step
+- **Include drafts and templates** — If you suggest sending an email, WRITE the email. If you suggest a meeting, WRITE the agenda. If you suggest a pitch, WRITE the talking points.
+- **Be specific about contacts** — Don't say "reach out to hospital leadership." Say "Contact the Director of Nursing Innovation (or equivalent title at Mt Sinai: Associate Chief Nursing Officer for Innovation). Find them on LinkedIn or the Mt Sinai staff directory."
+- **Include questions to ask** — When suggesting conversations, provide the 3-5 specific questions to ask and what answers to listen for
+- **Use step-by-step format** — Number your steps. Each step = one action by one person with a clear deliverable.
+- Reference other team members by their real names and tell users how to summon them
+- Stay in character but be collaborative
+- Remember: we are pre-seed, pre-pilot, 3 months in. Don't suggest actions that require funding we don't have or staff we haven't hired.`);
 
   return parts.join('\n\n');
 }
@@ -477,6 +557,14 @@ async function handleTeamStatus(channelId, rootId) {
       '- `!clinical` / `!claire` — Clinical workflows & advice',
       '- `!ml` / `!tensor` — ML/AI systems',
       '- `!fda` / `!regina` — FDA regulatory affairs',
+      '',
+      '**Operations Nerve Center (Atlas):**',
+      '- `!atlas status` — Gap closure program overview',
+      '- `!atlas ws <1-7>` — Workstream detail',
+      '- `!atlas task list` — Human task tracker',
+      '- `!atlas health` — Domain health dashboard',
+      '- `!atlas weekly` — Weekly operations report',
+      '- `!atlas blockers` — Show all blockers',
       '',
       '**Team Commands:**',
       '- `!team status` — This status report',
@@ -724,13 +812,13 @@ async function handleDocCommand(channelId, rootId, text, userId) {
 
       // Group by category
       const categories = {
-        investor: ['pitch-deck', 'executive-summary', 'financial-model'],
+        investor: ['pitch-deck', 'executive-summary', 'financial-model', 'data-room-index', 'investor-faq', 'accelerator-application'],
         market: ['tam-analysis', 'competitive-landscape', 'vocera-teardown'],
         product: ['prd', 'mvp-spec', 'roadmap'],
-        gtm: ['launch-plan', 'pricing-model', 'channel-strategy'],
-        clinical: ['clinical-validation-plan', 'pilot-design', 'workflow-analysis'],
-        technical: ['architecture-doc', 'integration-spec', 'security-whitepaper'],
-        regulatory: ['fda-strategy', 'hipaa-compliance-matrix'],
+        gtm: ['launch-plan', 'pricing-model', 'channel-strategy', 'hospital-scorecard', 'loi-template'],
+        clinical: ['clinical-validation-plan', 'pilot-design', 'workflow-analysis', 'advisory-board-charter', 'accuracy-spec', 'bias-testing-methodology'],
+        technical: ['architecture-doc', 'integration-spec', 'security-whitepaper', 'infra-cost-model', 'fhir-resource-mapping'],
+        regulatory: ['fda-strategy', 'hipaa-compliance-matrix', 'baa-template', 'soc2-checklist'],
       };
 
       for (const [cat, keys] of Object.entries(categories)) {
@@ -892,6 +980,7 @@ async function handleReaction(reaction) {
 // ── Graceful Shutdown ──
 process.on('SIGTERM', () => {
   log('info', 'SIGTERM received, shutting down');
+  nerveCenter.shutdown();
   dailyDigest.stop();
   institutionalMemory.shutdown();
   process.exit(0);
@@ -899,6 +988,7 @@ process.on('SIGTERM', () => {
 
 process.on('SIGINT', () => {
   log('info', 'SIGINT received, shutting down');
+  nerveCenter.shutdown();
   dailyDigest.stop();
   institutionalMemory.shutdown();
   process.exit(0);

@@ -11,6 +11,25 @@ export function createWebSocketManager(config, onMessage) {
     reconnectDelay: 5000
   };
 
+  // Dedup: track recently seen post IDs to prevent duplicate processing
+  const recentPostIds = new Set();
+  const DEDUP_MAX_SIZE = 500;
+
+  function dedup(postId) {
+    if (recentPostIds.has(postId)) return false; // already seen
+    recentPostIds.add(postId);
+    if (recentPostIds.size > DEDUP_MAX_SIZE) {
+      // Evict oldest entries (Set iterates in insertion order)
+      const iter = recentPostIds.values();
+      for (let i = 0; i < 100; i++) iter.next();
+      const toKeep = [];
+      for (const v of recentPostIds) toKeep.push(v);
+      recentPostIds.clear();
+      for (const v of toKeep.slice(100)) recentPostIds.add(v);
+    }
+    return true; // first time seeing this post
+  }
+
   async function connect() {
     try {
       // Get bot user ID first
@@ -40,6 +59,15 @@ export function createWebSocketManager(config, onMessage) {
       state.ws.on('message', (data) => {
         try {
           const event = JSON.parse(data.toString());
+          // Dedup posted events by post ID
+          if (event.event === 'posted' && event.data?.post) {
+            try {
+              const post = JSON.parse(event.data.post);
+              if (post.id && !dedup(post.id)) {
+                return; // duplicate post event, skip
+              }
+            } catch (_) { /* parse failed, let handler deal with it */ }
+          }
           onMessage(event, state.botUserId);
         } catch (e) {
           log('error', 'Failed to parse WebSocket message', { error: e.message });

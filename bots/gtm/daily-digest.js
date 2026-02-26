@@ -16,6 +16,16 @@ import institutionalMemory from 'bots-shared/institutional-memory';
 import * as llm from 'bots-shared/llm.js';
 import * as mm from 'bots-shared/mattermost.js';
 
+// Nerve center reference (set after init)
+let nerveCenterRef = null;
+
+/**
+ * Set nerve center reference for digest integration.
+ */
+export function setNerveCenter(nc) {
+  nerveCenterRef = nc;
+}
+
 let config = null;
 let logger = () => {};
 let scheduledJob = null;
@@ -94,11 +104,11 @@ export async function generateAndPostDigest() {
     // 2. Generate perspectives from key personas (not all 14, just those with something to say)
     const priorityPersonas = [
       'strategist',
+      'growth-lead',
+      'sales-bd',
       'product-owner',
       'clinical-advisor',
-      'regulatory-affairs',
-      'security-architect',
-      'enterprise-architect',
+      'healthcare-analyst',
     ];
 
     const perspectives = [];
@@ -214,10 +224,10 @@ async function generatePersonaPerspective(personaKey, state, observations, recen
 
   try {
     const result = await llm.summarize([
-      { role: 'user', content: `As ${persona.name} (${persona.label}), provide a brief advisory perspective for today's digest.\n\nContext:\n${context}\n\nWrite 2-3 concise bullet points of actionable counsel. Advisory board tone - wise, direct, high-signal. If nothing important to add, say "No items requiring attention today."` }
+      { role: 'user', content: `As ${persona.name} (${persona.label}), provide a brief advisory perspective for today's digest.\n\nContext:\n${context}\n\nIMPORTANT: We are a 5-person pre-seed startup, 3 months into development. Ruth Okyere (CEO, RN) is currently in the Mt Sinai Innovation Program — this is our primary pathway to first pilot and LOI.\n\nWrite 2-3 concise, ACTIONABLE bullet points. Each bullet must:\n- Name WHO should do it (Ruth, Hubert, Alex, Kwaku, or Kofi)\n- Say specifically WHAT to do (not vague advice)\n- If relevant, include a draft email subject line, a question to ask, or a specific contact role to reach\n\nAdvisory board tone - wise, direct, high-signal. If nothing important to add, say "No items requiring attention today."` }
     ], {
-      system: `You are ${persona.name}, the ${persona.label} for OPAL/LYNA healthcare edge AI startup. You are part of an advisory board providing daily strategic guidance. Be concise, actionable, and professional. Do not be chatty.`,
-      max_tokens: 300,
+      system: `You are ${persona.name}, the ${persona.label} for OPAL/LYNA healthcare edge AI startup. You are augmenting a 5-person team. Your job is to give them specific, executable tasks they can act on TODAY. Never give vague advice like "engage stakeholders" without saying exactly who, how, and what to say. Ruth is an RN at Mt Sinai participating in their innovation program — this is our #1 pathway.`,
+      max_tokens: 500,
     });
 
     const content = result.text?.trim() || '';
@@ -253,7 +263,7 @@ function formatDigest(perspectives, stateSummary, observedGaps, topTopics) {
 
   const lines = [
     `## :crystal_ball: View from the Advisory Board`,
-    `*${date}*`,
+    `*${date}* | **Stage:** Pre-seed, Month 3 | **Focus:** Mt Sinai Innovation Program → First Pilot → LOI`,
     '',
   ];
 
@@ -300,9 +310,23 @@ function formatDigest(perspectives, stateSummary, observedGaps, topTopics) {
     lines.push('');
   }
 
+  // Gap Closure Program status (from nerve center)
+  if (nerveCenterRef) {
+    try {
+      const ncSection = nerveCenterRef.getDigestSection();
+      if (ncSection) {
+        lines.push(ncSection);
+        lines.push('');
+      }
+    } catch {
+      // Nerve center not ready
+    }
+  }
+
   // Footer
   lines.push('---');
   lines.push('*To discuss any item: `@gtm-team` + persona command (e.g., `!strategist`, `!clinical`, `!security`)*');
+  lines.push('*Program status: `!atlas status` | Tasks: `!atlas task list` | Weekly: `!atlas weekly`*');
 
   return lines.join('\n');
 }
@@ -319,4 +343,5 @@ export default {
   stop,
   generateAndPostDigest,
   triggerDigest,
+  setNerveCenter,
 };
